@@ -16,6 +16,9 @@ mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true }, () => {
   console.log("MongoDB database connection established successfully.");
 });
 
+const cardsRouter = require('./routes/cards');
+app.use('/cards', cardsRouter)
+
 app.listen(PORT, () => {
   console.log(`App is now listening for request on http://localhost:${PORT}`);
 });
