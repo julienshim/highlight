@@ -16,7 +16,9 @@ mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true, useCrea
   console.log("MongoDB database connection established successfully.");
 });
 
+const userRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
+app.use('/users/', userRouter)
 app.use('/cards', cardsRouter)
 
 app.listen(PORT, () => {
