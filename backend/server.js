@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 const uri = process.env.LOCAL_URI;
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true }, () => {
+mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }, () => {
   console.log("MongoDB database connection established successfully.");
 });
 
