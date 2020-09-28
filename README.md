@@ -1,1 +1,1 @@
-# MERN Vocabulary App
+# PERN Vocabulary App
