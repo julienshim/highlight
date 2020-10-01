@@ -1,0 +1,9 @@
+.active {
+  cursor: pointer;
+  z-index: 0;
+}
+
+.hidden {
+  opacity: 0;
+  z-index: -1;
+}
