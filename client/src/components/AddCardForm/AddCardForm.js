@@ -18,12 +18,12 @@ const AddCardForm = () => {
     try {
       const body = {
         book,
-        deck,
+        deck: +deck,
         korean,
         english,
         pronunciation,
         hanja,
-        onMaster,
+        onMaster: !onMaster ? false : true
       };
       const uri = "http://localhost:5000/cards/add";
       const options = {
@@ -34,18 +34,28 @@ const AddCardForm = () => {
         body: JSON.stringify(body),
       };
       const response = await fetch(uri, options);
+      const jsonData = await response.json();
+      console.log(jsonData);
       if (response) {
         dispatch({
           type: "ADD_CARD",
+          card_id: jsonData.card_id,
           book,
-          deck,
+          deck: +deck,
           korean,
           english,
           pronunciation,
           hanja,
-          onMaster,
+          onMaster: !onMaster ? false : true,
         });
       }
+      setBook("")
+      setDeck(0)
+      setKorean("")
+      setEnglish("")
+      setPronunciation("")
+      setHanja("")
+      setOnMaster(false)
     } catch (err) {
       console.error(err.message);
     }
@@ -86,8 +96,8 @@ const AddCardForm = () => {
           onChange={(e) => setHanja(e.target.value)}
         />
         <input
-          type="text"
-          value={onMaster}
+          type="checkbox"
+          checked={onMaster}
           onChange={(e) => setOnMaster(e.target.value)}
         />
         <button>Add</button>
