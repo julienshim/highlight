@@ -15,7 +15,7 @@ router.post("/add", async (req, res) => {
 
 router.get("/", async(req, res) => {
   try {
-    const allCards = await pool.query("SELECT * FROM cards");
+    const allCards = await pool.query("SELECT * FROM cards ORDER BY card_id");
     res.json(allCards.rows)
   } catch (err) {
     console.error(err.message);
