@@ -27,7 +27,7 @@ router.get("/:id", async (req, res) => {
     const {id} = req.params;
     const card = await pool.query("SELECT * FROM cards WHERE card_id = $1", [id])
     res.json(card)
-  } catch {
+  } catch (err) {
     console.error(err.message);
   }
 });
@@ -38,7 +38,7 @@ router.put("/update/:id", async (req, res) => {
     const {book, deck, korean, english, pronunciation, hanja, onMaster} = req.body;
     const updateCard = await pool.query("UPDATE cards SET book = $1, deck = $2, korean = $3, english = $4, pronunciation = $5, hanja = $6, onMaster = $7 WHERE card_id = $8 RETURNING *", [book, Number(deck), korean, english, pronunciation, hanja, Boolean(onMaster), id])
     res.json(updateCard.rows[0])
-  } catch {
+  } catch (err) {
     console.error(err.message);
   }
 });
