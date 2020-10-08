@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useContext } from "react";
 import CardsContext from "../../context/cards-context";
-import "./AddCard.scss";
+import "./AddCardFrom.scss";
 
 const AddCardForm = () => {
   const [book, setBook] = useState("");
@@ -23,7 +23,7 @@ const AddCardForm = () => {
         english,
         pronunciation,
         hanja,
-        onMaster: !onMaster ? false : true
+        onMaster: !onMaster ? false : true,
       };
       const uri = "http://localhost:5000/cards/add";
       const options = {
@@ -49,13 +49,13 @@ const AddCardForm = () => {
           onMaster: !onMaster ? false : true,
         });
       }
-      setBook("")
-      setDeck(0)
-      setKorean("")
-      setEnglish("")
-      setPronunciation("")
-      setHanja("")
-      setOnMaster(false)
+      setBook("");
+      setDeck(0);
+      setKorean("");
+      setEnglish("");
+      setPronunciation("");
+      setHanja("");
+      setOnMaster(false);
     } catch (err) {
       console.error(err.message);
     }
@@ -63,44 +63,101 @@ const AddCardForm = () => {
 
   return (
     <Fragment>
-      <h1>Vocabulary List</h1>
       <form className="form" onSubmit={addCard}>
-        <input
-          type="text"
-          value={book}
-          onChange={(e) => setBook(e.target.value)}
-        />
-        <input
-          type="text"
-          value={deck}
-          onChange={(e) => setDeck(e.target.value)}
-        />
-        <input
-          type="text"
-          value={korean}
-          onChange={(e) => setKorean(e.target.value)}
-        />
-        <input
-          type="text"
-          value={english}
-          onChange={(e) => setEnglish(e.target.value)}
-        />
-        <input
-          type="text"
-          value={pronunciation}
-          onChange={(e) => setPronunciation(e.target.value)}
-        />
-        <input
-          type="text"
-          value={hanja}
-          onChange={(e) => setHanja(e.target.value)}
-        />
-        <input
-          type="checkbox"
-          checked={onMaster}
-          onChange={(e) => setOnMaster(e.target.value)}
-        />
-        <button>Add</button>
+        <table>
+          <thead id="secondary">
+            <tr>
+              <th>Book</th>
+              <th>Deck</th>
+              <th>Korean</th>
+              <th>English</th>
+              <th>Pronunciation</th>
+              <th>Hanja</th>
+              <th>onMaster</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div className="inline-container">
+                  <input
+                    className="inline-input"
+                    type="text"
+                    value={book}
+                    onChange={(e) => setBook(e.target.value)}
+                  />
+                </div>
+              </td>
+              <td>
+                <div className="inline-container">
+                  <input
+                    className="inline-input"
+                    type="text"
+                    value={deck}
+                    onChange={(e) => setDeck(e.target.value)}
+                  />
+                </div>
+              </td>
+              <td>
+                <div className="inline-container">
+                  <input
+                    className="inline-input"
+                    type="text"
+                    value={korean}
+                    onChange={(e) => setKorean(e.target.value)}
+                  />
+                </div>
+              </td>
+              <td>
+                <div className="inline-container">
+                  <input
+                    className="inline-input"
+                    type="text"
+                    value={english}
+                    onChange={(e) => setEnglish(e.target.value)}
+                  />
+                </div>
+              </td>
+              <td>
+                <div className="inline-container">
+                  <input
+                    className="inline-input"
+                    type="text"
+                    value={pronunciation}
+                    onChange={(e) => setPronunciation(e.target.value)}
+                  />
+                </div>
+              </td>
+              <td>
+                <div className="inline-container">
+                  <input
+                    className="inline-input"
+                    type="text"
+                    value={hanja}
+                    onChange={(e) => setHanja(e.target.value)}
+                  />
+                </div>
+              </td>
+              <td>                <div className="inline-container">
+
+              <input
+                    className="inline-input"
+                    type="checkbox"
+                    checked={onMaster}
+                    onChange={(e) => setOnMaster(e.target.value)}
+                  />
+              </div>
+         
+              </td>
+              <td>
+              <div className="inline-container">
+
+                  <button>Add</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </form>
     </Fragment>
   );
