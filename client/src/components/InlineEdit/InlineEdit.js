@@ -29,10 +29,9 @@ const InlineEdit = (props) => {
   });
 
   return (
-    <div style={{position: "relative", width: "150px"}} ref={wrapperRef}>
+    <div className="inline-container" ref={wrapperRef}>
       <span
-        style={{position: "absolute", top: "0", left: "0"}}
-        className={!isInputActive ? "active" : "hidden"}
+        className={`inline-span ${!isInputActive ? "active" : "hidden"}`}
         ref={textRef}
         onClick={() => {
           setIsInputActive(true)
@@ -42,10 +41,9 @@ const InlineEdit = (props) => {
         {text}
       </span>
       <input
-        style={{position: "absolute", top: "0", left: "0"}}
         ref={inputRef}
         tabIndex="0"
-        className={isInputActive ? "active" : "hidden"}
+        className={`inline-input ${!isInputActive ? "hidden" : "active"}`}
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         onFocus={() => {
