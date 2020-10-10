@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
-import './InlineEdit.scss';
-import useOnClickOutside from '../../hooks/useOnClickOutside';
+import React, { useRef, useState, useCallback, useEffect } from "react";
+import "./InlineEdit.scss";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 import useOnFocusOut from "../../hooks/useOnFocusOut";
-
+import useKeypress from "../../hooks/useKeypress";
 
 const InlineEdit = (props) => {
   const { text, setText } = props;
@@ -14,41 +14,63 @@ const InlineEdit = (props) => {
   const textRef = useRef(null);
   const inputRef = useRef(null);
 
-  useOnClickOutside(wrapperRef, () => {
-    if(isInputActive) {
-      setText(inputValue);
-      setIsInputActive(false);
-    }
-  })
+  const enter = useKeypress("Enter");
+  const esc = useKeypress("Escape");
 
-  useOnFocusOut(inputRef, () => {
-    if(isInputActive) {
+  useOnClickOutside(wrapperRef, () => {
+    if (isInputActive) {
       setText(inputValue);
       setIsInputActive(false);
     }
   });
 
+  useOnFocusOut(inputRef, () => {
+    if (isInputActive) {
+      setText(inputValue);
+      setIsInputActive(false);
+    }
+  });
+
+  const onEnter = useCallback(() => {
+    if (enter) {
+      setText(inputValue);
+      setIsInputActive(false);
+    }
+  }, [enter, inputValue, setText]);
+
+  const onEsc = useCallback(() => {
+    if (esc) {
+      setText(text);
+      setIsInputActive(false);
+    }
+  }, [esc, text, setText]);
+
+  useEffect(() => {
+    if (isInputActive) {
+      onEnter();
+      onEsc();
+    }
+  }, [onEnter, onEsc, isInputActive]);
+
   return (
     <div className="inline-container" ref={wrapperRef}>
-      <span
-        className={`inline-span ${!isInputActive ? "active" : "hidden"}`}
+      <div
+        className={`inline-div ${!isInputActive ? "active" : "hidden"}`}
         ref={textRef}
         onClick={() => {
-          setIsInputActive(true)
+          setIsInputActive(true);
           inputRef.current.focus()
-          }}
+        }}
       >
         {text}
-      </span>
+      </div>
       <input
         ref={inputRef}
-        tabIndex="0"
         className={`inline-input ${!isInputActive ? "hidden" : "active"}`}
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         onFocus={() => {
-          setIsInputActive(true)
-          inputRef.current.focus()
+          setIsInputActive(true);
         }}
       />
     </div>
