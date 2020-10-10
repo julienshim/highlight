@@ -1,11 +1,10 @@
 import React, { Fragment, useContext } from "react";
 import Card from "../Card/Card";
 import CardsContext from "../../context/cards-context";
-import './CardsList.scss';
+import "./CardsList.scss";
 
 const ListCards = () => {
   const { cards } = useContext(CardsContext);
-
   return (
     <Fragment>
       <h1>Vocabulary List</h1>
@@ -23,7 +22,10 @@ const ListCards = () => {
         </thead>
         <tbody>
           {cards.map((card) => (
-            <Card key={`card-${card.card_id}`} card={card} />
+            <Card
+              key={`card-${card.card_id}`}
+              card={card}
+            />
           ))}
         </tbody>
       </table>
