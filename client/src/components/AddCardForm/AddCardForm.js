@@ -63,25 +63,14 @@ const AddCardForm = () => {
 
   return (
     <Fragment>
-      <form className="form" onSubmit={addCard}>
+      <form onSubmit={addCard}>
         <table>
-          <thead id="secondary">
-            <tr>
-              <th>Book</th>
-              <th>Deck</th>
-              <th>Korean</th>
-              <th>English</th>
-              <th>Pronunciation</th>
-              <th>Hanja</th>
-              <th>onMaster</th>
-            </tr>
-          </thead>
           <tbody>
-            <tr>
+            <tr style={{ backgroundColor: "red" }}>
               <td>
                 <div className="inline-container">
                   <input
-                    className="inline-input"
+                    className="form-input"
                     type="text"
                     value={book}
                     onChange={(e) => setBook(e.target.value)}
@@ -91,7 +80,7 @@ const AddCardForm = () => {
               <td>
                 <div className="inline-container">
                   <input
-                    className="inline-input"
+                    className="form-input"
                     type="text"
                     value={deck}
                     onChange={(e) => setDeck(e.target.value)}
@@ -101,7 +90,7 @@ const AddCardForm = () => {
               <td>
                 <div className="inline-container">
                   <input
-                    className="inline-input"
+                    className="form-input"
                     type="text"
                     value={korean}
                     onChange={(e) => setKorean(e.target.value)}
@@ -111,7 +100,7 @@ const AddCardForm = () => {
               <td>
                 <div className="inline-container">
                   <input
-                    className="inline-input"
+                    className="form-input"
                     type="text"
                     value={english}
                     onChange={(e) => setEnglish(e.target.value)}
@@ -121,7 +110,7 @@ const AddCardForm = () => {
               <td>
                 <div className="inline-container">
                   <input
-                    className="inline-input"
+                    className="form-input"
                     type="text"
                     value={pronunciation}
                     onChange={(e) => setPronunciation(e.target.value)}
@@ -131,27 +120,26 @@ const AddCardForm = () => {
               <td>
                 <div className="inline-container">
                   <input
-                    className="inline-input"
+                    className="form-input"
                     type="text"
                     value={hanja}
                     onChange={(e) => setHanja(e.target.value)}
                   />
                 </div>
               </td>
-              <td>                <div className="inline-container">
-
-              <input
-                    className="inline-input"
+              <td>
+                <div>
+                  <input className="checkbox"
                     type="checkbox"
                     checked={onMaster}
-                    onChange={(e) => setOnMaster(e.target.value)}
+                    onChange={() =>
+                      setOnMaster(!onMaster)
+                    }
                   />
-              </div>
-         
+                </div>
               </td>
               <td>
-              <div className="inline-container">
-
+                <div>
                   <button>Add</button>
                 </div>
               </td>
