@@ -17,30 +17,40 @@ const InlineEdit = (props) => {
   const enter = useKeypress("Enter");
   const esc = useKeypress("Escape");
 
-  useOnClickOutside(wrapperRef, () => {
+  useOnClickOutside(wrapperRef, (event) => {
     if (isInputActive) {
-      setText(inputValue);
+      if (event.target.value !== text) {
+        setText(inputValue);
+      }
       setIsInputActive(false);
     }
   });
 
-  useOnFocusOut(inputRef, () => {
+  useOnFocusOut(inputRef, (event) => {
     if (isInputActive) {
-      setText(inputValue);
+      if (event.target.value !== text) {
+        setText(inputValue);
+      }
       setIsInputActive(false);
     }
   });
 
   const onEnter = useCallback(() => {
     if (enter) {
-      setText(inputValue);
+      if (inputRef.current.value !== text) {
+        setText(inputValue);
+      }
+      document.activeElement.blur();
       setIsInputActive(false);
     }
-  }, [enter, inputValue, setText]);
+  }, [enter, inputValue, setText, text]);
 
   const onEsc = useCallback(() => {
     if (esc) {
-      setText(text);
+      if (inputRef.current.value !== text) {
+        setText(text);
+      }
+      document.activeElement.blur();
       setIsInputActive(false);
     }
   }, [esc, text, setText]);
@@ -59,7 +69,6 @@ const InlineEdit = (props) => {
         ref={textRef}
         onClick={() => {
           setIsInputActive(true);
-          inputRef.current.focus()
         }}
       >
         {text}
