@@ -36,8 +36,8 @@ function App() {
         dispatch,
       }}
     >
-      <AddCardForm />
       <CardsList />
+      <AddCardForm />
     </CardsContext.Provider>
   );
 }
