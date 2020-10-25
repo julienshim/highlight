@@ -3,25 +3,21 @@ import CardsContext from "../../context/cards-context";
 import "./AddCardForm.scss";
 
 const AddCardForm = () => {
-  const [book, setBook] = useState("");
-  const [deck, setDeck] = useState(0);
+  const { cards, dispatch } = useContext(CardsContext);
+
+  const [deck, setDeck] = useState("");
   const [korean, setKorean] = useState("");
   const [english, setEnglish] = useState("");
-  const [pronunciation, setPronunciation] = useState("");
   const [hanja, setHanja] = useState("");
   const [onMaster, setOnMaster] = useState(false);
-
-  const { dispatch } = useContext(CardsContext);
 
   const addCard = async (e) => {
     e.preventDefault();
     try {
       const body = {
-        book,
-        deck: +deck,
+        deck,
         korean,
         english,
-        pronunciation,
         hanja,
         onMaster: !onMaster ? false : true,
       };
@@ -35,25 +31,20 @@ const AddCardForm = () => {
       };
       const response = await fetch(uri, options);
       const jsonData = await response.json();
-      console.log(jsonData);
       if (response) {
         dispatch({
           type: "ADD_CARD",
           card_id: jsonData.card_id,
-          book,
-          deck: +deck,
+          deck,
           korean,
           english,
-          pronunciation,
           hanja,
           onMaster: !onMaster ? false : true,
         });
       }
-      setBook("");
-      setDeck(0);
+      setDeck(Math.ceil(cards.length / 30));
       setKorean("");
       setEnglish("");
-      setPronunciation("");
       setHanja("");
       setOnMaster(false);
     } catch (err) {
@@ -67,16 +58,6 @@ const AddCardForm = () => {
         <table>
           <tbody>
             <tr style={{ backgroundColor: "red" }}>
-              <td>
-                <div className="inline-container">
-                  <input
-                    className="form-input"
-                    type="text"
-                    value={book}
-                    onChange={(e) => setBook(e.target.value)}
-                  />
-                </div>
-              </td>
               <td>
                 <div className="inline-container">
                   <input
@@ -112,16 +93,6 @@ const AddCardForm = () => {
                   <input
                     className="form-input"
                     type="text"
-                    value={pronunciation}
-                    onChange={(e) => setPronunciation(e.target.value)}
-                  />
-                </div>
-              </td>
-              <td>
-                <div className="inline-container">
-                  <input
-                    className="form-input"
-                    type="text"
                     value={hanja}
                     onChange={(e) => setHanja(e.target.value)}
                   />
@@ -129,12 +100,11 @@ const AddCardForm = () => {
               </td>
               <td>
                 <div>
-                  <input className="checkbox"
+                  <input
+                    className="checkbox"
                     type="checkbox"
                     checked={onMaster}
-                    onChange={() =>
-                      setOnMaster(!onMaster)
-                    }
+                    onChange={() => setOnMaster(!onMaster)}
                   />
                 </div>
               </td>
