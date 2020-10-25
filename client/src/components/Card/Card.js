@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import CardsContext from "../../context/cards-context";
 import InlineEdit from "../InlineEdit/InlineEdit";
 import "./Card.scss";
@@ -8,27 +8,18 @@ const Card = (props) => {
 
   const { dispatch } = useContext(CardsContext);
 
-  const [book, setBook] = useState(card.book);
   const [deck, setDeck] = useState(card.deck);
   const [korean, setKorean] = useState(card.korean);
   const [english, setEnglish] = useState(card.english);
-  const [pronunciation, setPronunciation] = useState(card.pronunciation);
-  const [hanja, setHanja] = useState(card.hanja);
+  const [hanja, setHanja] = useState(card.hanja || '');
   const [onmaster, setOnMaster] = useState(card.onmaster);
 
-  useEffect(() => {
-    updateCard(card.card_id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [book, deck, korean, english, pronunciation, hanja, onmaster]);
-
-  const updateCard = async (card_id) => {
+  const updateCard = useCallback(async (card_id) => {
     try {
       const body = {
-        book,
         deck,
         korean,
         english,
-        pronunciation,
         hanja,
         onmaster,
       };
@@ -39,15 +30,12 @@ const Card = (props) => {
         body: JSON.stringify(body),
       };
       const response = await fetch(uri, options);
-      console.log(response);
       if (response) {
         dispatch({
           type: "EDIT_CARD",
-          book,
           deck,
           korean,
           english,
-          pronunciation,
           hanja,
           onmaster,
         });
@@ -55,7 +43,7 @@ const Card = (props) => {
     } catch (err) {
       console.error(err.message);
     }
-  };
+  },[deck, korean, english, hanja, onmaster, dispatch]);
 
   const deleteCard = async (card_id) => {
     try {
@@ -72,11 +60,12 @@ const Card = (props) => {
     }
   };
 
+  useEffect(() => {
+    updateCard(card.card_id);
+  }, [card.card_id, updateCard]);
+
   return (
     <tr>
-      <td>
-        <InlineEdit text={book} setText={setBook} />
-      </td>
       <td>
         <InlineEdit text={deck} setText={setDeck} />
       </td>
@@ -85,9 +74,6 @@ const Card = (props) => {
       </td>
       <td>
         <InlineEdit text={english} setText={setEnglish} />
-      </td>
-      <td>
-        <InlineEdit text={pronunciation} setText={setPronunciation} />
       </td>
       <td>
         <InlineEdit text={hanja} setText={setHanja} />
