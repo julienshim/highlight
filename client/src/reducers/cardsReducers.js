@@ -9,11 +9,9 @@ const cardsReducer = (state, action) => {
         ...state,
         {
           card_id: action.card_id,
-          book: action.book,
           deck: action.deck,
           korean: action.korean,
           english: action.english,
-          pronunciation: action.pronunciation,
           hanja: action.hanja,
           onmaster: action.onMaster,
         },
@@ -21,11 +19,9 @@ const cardsReducer = (state, action) => {
     case "EDIT_CARD":
       return state.map((card => card.card_id === action.card_id ? {
         card_id: action.card_id,
-        book: action.book,
         deck: action.deck,
         korean: action.korean,
         english: action.english,
-        pronunciation: action.pronunciation,
         hanja: action.hanja,
         onmaster: action.onMaster,
       } : card))
