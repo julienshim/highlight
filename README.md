@@ -1,1 +1,1 @@
-# PERN Vocabulary App
+# Shorthand
