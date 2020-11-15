@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./Home";
 import Templates from "./Templates";
 import CreateTemplate from "./CreateTemplate";
-import Notes from './Notes';
+import Notes from "./Notes";
 
 const routes = [
   {
@@ -40,7 +40,7 @@ export default function App() {
           style={{
             padding: "10px",
             minWidth: "200px",
-            background: "#f0f0f0",
+            background: "var(--english-violet)",
           }}
         >
           <ul style={{ listStyleType: "none", padding: 0 }}>
@@ -56,7 +56,7 @@ export default function App() {
           </ul>
         </div>
 
-        <div style={{padding: "10px", width: "100%" }}>
+        <div style={{ padding: "24px 48px", width: "100%" }}>
           <Switch>
             {routes.map((route, index) => (
               <Route
