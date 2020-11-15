@@ -90,6 +90,19 @@ div.active {
 /* .inline-container {
   background-color: grey;
 } */
+
+/* .inline-container {
+  margin: 0;
+} */
+
 .inline-container:hover > .deleteButton {
   visibility: visible;
+}
+
+.submitButton {
+  background-color: white;
+  border: 3px solid var(--english-violet);
+  padding: 12px 24px;
+  font-weight: bold;
+  margin: 48px 0;
 }
