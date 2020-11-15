@@ -71,28 +71,29 @@ const InlineEditSubtitle = (props) => {
   }, [onEnter, onEsc, isInputActive]);
 
   return (
-    <div className="inline-container inline-subtitle" ref={wrapperRef}>
-          <span className="deleteButton deleteSubtitleButton ">{deleteButton}</span>
-
-      <div
-        className={`inline-div ${!isInputActive ? "active" : "hidden"}`}
-        ref={textRef}
-        onClick={() => {
-          setIsInputActive(true);
-        }}
-      >
-        {text || placeholder}
+    <div className="inline-container inline-subtitle" style={{ display: "flex", margin: 0 }} ref={wrapperRef}>
+      <div className="deleteButton deleteSubtitleButton ">{deleteButton}</div>
+      <div style={{ padding: "12px" }}>
+        <div
+          className={`inline-div ${!isInputActive ? "active" : "hidden"}`}
+          ref={textRef}
+          onClick={() => {
+            setIsInputActive(true);
+          }}
+        >
+          {text || placeholder}
+        </div>
+        <input
+          style={{ width: (((inputValue.length > placeholder.length ? inputValue.length : placeholder.length + 7) * .1) * 7.7) + "ch" }}
+          ref={inputRef}
+          className={`inline-input ${!isInputActive ? "hidden" : "active"}`}
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onFocus={() => {
+            setIsInputActive(true);
+          }}
+        />
       </div>
-      <input
-        style={{ width: (((inputValue.length > placeholder.length ? inputValue.length : placeholder.length + 7) * .1) * 7.7) + "ch"}}
-        ref={inputRef}
-        className={`inline-input ${!isInputActive ? "hidden" : "active"}`}
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        onFocus={() => {
-          setIsInputActive(true);
-        }}
-      />
     </div>
   );
 };

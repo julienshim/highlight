@@ -71,35 +71,37 @@ const InlineEditContent = (props) => {
   }, [onEnter, onEsc, isInputActive]);
 
   return (
-    <div className="inline-container inline-content" ref={wrapperRef}>
-      <span className="deleteButton deleteContentButton" onClick={() => deleteText(scenarioIndex, entryIndex)}>{deleteButton}</span>
-      <div
-        className={`inline-div ${!isInputActive ? "active" : "hidden"}`}
-        ref={textRef}
-        onClick={() => {
-          setIsInputActive(true);
-        }}
-      >
-        {text || placeholder}
-      </div>
-      <input
-        style={{
-          width:
-            (inputValue.length > placeholder.length
-              ? inputValue.length
-              : placeholder.length + 7) *
+    <div className="inline-container inline-content" style={{ display: "flex", margin: 0 }} ref={wrapperRef}>
+      <div className="deleteButton deleteContentButton" onClick={() => deleteText(scenarioIndex, entryIndex)}>{deleteButton}</div>
+      <div style={{ padding: "12px" }}>
+        <div
+          className={`inline-div ${!isInputActive ? "active" : "hidden"}`}
+          ref={textRef}
+          onClick={() => {
+            setIsInputActive(true);
+          }}
+        >
+          {text || placeholder}
+        </div>
+        <input
+          style={{
+            width:
+              (inputValue.length > placeholder.length
+                ? inputValue.length
+                : placeholder.length + 7) *
               0.1 *
               7.7 +
-            "ch",
-        }}
-        ref={inputRef}
-        className={`inline-input ${!isInputActive ? "hidden" : "active"}`}
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        onFocus={() => {
-          setIsInputActive(true);
-        }}
-      />
+              "ch",
+          }}
+          ref={inputRef}
+          className={`inline-input ${!isInputActive ? "hidden" : "active"}`}
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onFocus={() => {
+            setIsInputActive(true);
+          }}
+        />
+      </div>
     </div>
   );
 };
