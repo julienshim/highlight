@@ -129,7 +129,7 @@ const CreateTemplate = () => {
             + New Section
           </p>
         </div>
-        <input type="submit" value="Save" />
+        <input className="submitButton" type="submit" value="Save" />
       </form>
     </div>
   );
