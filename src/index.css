@@ -1,3 +1,12 @@
+:root {
+  --english-violet: rgba(65, 60, 88, 1);
+  --dogwood-rose: rgba(217, 3, 104, 1);
+  --silver-pink: rgba(201, 173, 161, 1);
+  --cadet-grey: rgba(149, 163, 179, 1);
+  --blue-munsell: rgba(37, 142, 166, 1);
+  --cyber-grape: rgba(97, 63, 117, 1);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -10,4 +19,77 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.active {
+  display: inline-block;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  padding: 0;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+input.active {
+  border-bottom: 1px solid #666666;
+}
+
+div.active {
+  border-bottom: 1px dotted black;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.inline-title {
+  display: block;
+  font-size: 2em;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+.inline-subtitle {
+  color: var(--blue-munsell);
+  display: block;
+  font-size: 1.5em;
+  /* margin-block-start: 0.em; */
+  margin-block-end: 0.83em;
+  margin-inline-start: 0em;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+.inline-content {
+  display: inline-block;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+  margin-inline-start: 0em;
+  margin-inline-end: 0px;
+}
+
+.inline-container.inline-content {
+  color: var(--cadet-grey);
+}
+
+.inline-container.inline-title {
+  color: var(--cyber-grape);
+}
+
+.deleteButton {
+  visibility: hidden;
+  fill: var(--dogwood-rose);
+  padding: 12px 12px;
+}
+/* .inline-container {
+  background-color: grey;
+} */
+.inline-container:hover > .deleteButton {
+  visibility: visible;
 }
