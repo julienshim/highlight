@@ -69,7 +69,7 @@ const InlineEditTitle = (props) => {
         }}
         className={`inline-div ${!isInputActive ? "active" : "hidden"}`}
       >
-        {text || placeholder}
+        {text}
       </div>
       <input
         style={{ width: (((inputValue.length > placeholder.length ? inputValue.length : placeholder.length + 7) * .1) * 7.7) + "ch"}}
