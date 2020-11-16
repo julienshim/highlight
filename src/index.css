@@ -16,10 +16,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
+/* code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-}
+} */
 
 .active {
   display: inline-block;
@@ -105,4 +105,9 @@ div.active {
   padding: 12px 24px;
   font-weight: bold;
   margin: 48px 0;
+}
+
+.card {
+  margin: 0px 12px 12px 0;
+  background-color: pink;
 }
