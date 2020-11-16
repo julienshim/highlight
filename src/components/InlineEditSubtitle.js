@@ -3,8 +3,7 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 import useKeypress from "../hooks/useKeypress";
 
 const InlineEditSubtitle = (props) => {
-  const { text, setText, scenarioIndex } = props;
-
+  const { text, setText, deleteText, scenarioIndex } = props;
   const [isInputActive, setIsInputActive] = useState(false);
   const [inputValue, setInputValue] = useState(text);
 
@@ -56,6 +55,10 @@ const InlineEditSubtitle = (props) => {
     }
   }, [esc, text, setText, scenarioIndex, inputValue]);
 
+  // useEffect(() => {
+  //   setInputValue(text)
+  // })
+
   useEffect(() => {
     if (isInputActive) {
       inputRef.current.focus();
@@ -72,7 +75,7 @@ const InlineEditSubtitle = (props) => {
 
   return (
     <div className="inline-container inline-subtitle" style={{ display: "flex", margin: 0 }} ref={wrapperRef}>
-      <div className="deleteButton deleteSubtitleButton ">{deleteButton}</div>
+      <div className="deleteButton deleteSubtitleButton" onClick={() => deleteText(scenarioIndex)}>{deleteButton}</div>
       <div style={{ padding: "12px" }}>
         <div
           className={`inline-div ${!isInputActive ? "active" : "hidden"}`}
@@ -81,7 +84,7 @@ const InlineEditSubtitle = (props) => {
             setIsInputActive(true);
           }}
         >
-          {text || placeholder}
+          {text}
         </div>
         <input
           style={{ width: (((inputValue.length > placeholder.length ? inputValue.length : placeholder.length + 7) * .1) * 7.7) + "ch" }}
