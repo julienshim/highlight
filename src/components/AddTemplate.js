@@ -1,23 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import {useHistory} from 'react-router-dom';
+import TemplatesContext from "../context/templates-context";
 import InlineEditTitle from "./InlineEditTitle";
 import InlineEditSubtitle from "./InlineEditSubtitle";
 import InlineEditContent from "./InlineEditContent";
 
-const CreateTemplate = () => {
-  const [title, setTitle] = useState("");
+const AddTemplate = () => {
+  // eslint-disable-next-line no-unused-vars
+  const { templates, dispatch } = useContext(TemplatesContext);
+  const history = useHistory();
+
+  const [title, setTitle] = useState("Enter new title");
   const [scenarios, setScenarios] = useState([
     {
-      subtitle: "",
-      entries: [{ content: "", comment: "" }],
+      subtitle: "Enter new subtitle",
+      entries: [{ content: "Enter new text", comment: "" }],
     },
   ]);
 
-  const handleSubmit = (event) => {
+  const addTemplate = (event) => {
     event.preventDefault();
-    console.log({
-      title,
-      scenarios,
+    console.log({title, scenarios})
+    dispatch({
+      type: "ADD_TEMPLATE",
+      title: title === "" ? "Enter new title" : title,
+      scenarios:
+        scenarios.length === 0
+          ? [
+              {
+                subtitle: "Enter new subtitle",
+                entries: [{ content: "Enter new text", comment: "" }],
+              },
+            ]
+          : scenarios,
     });
+    history.push('/templates');
   };
 
   const handleScenarioChange = (newText, scenarioIndex, entryIndex, type) => {
@@ -36,14 +53,23 @@ const CreateTemplate = () => {
     const newScenarios = [...scenarios];
     newScenarios[scenarioIndex].entries = [
       ...newScenarios[scenarioIndex].entries,
-      { content: "", comment: "" },
+      { content: "Enter new text", comment: "" },
     ];
+    setScenarios(newScenarios);
+  };
+
+  const handleDeleteCurrentScenario = (scenarioIndex) => {
+    const newScenarios = scenarios.filter(
+      (scenario, index) => index !== scenarioIndex
+    );
     setScenarios(newScenarios);
   };
 
   const handleDeleteCurrentContent = (scenarioIndex, entryIndex) => {
     const newScenarios = [...scenarios];
-    newScenarios[scenarioIndex].entries = newScenarios[scenarioIndex].entries.filter((entry, index) => index !== entryIndex);
+    newScenarios[scenarioIndex].entries = newScenarios[
+      scenarioIndex
+    ].entries.filter((entry, index) => index !== entryIndex);
     setScenarios(newScenarios);
   };
 
@@ -51,8 +77,8 @@ const CreateTemplate = () => {
     setScenarios([
       ...scenarios,
       {
-        subtitle: "",
-        entries: [{ content: "", comment: "" }],
+        subtitle: "Enter new subtitle",
+        entries: [{ content: "Enter new text", comment: "" }],
       },
     ]);
   };
@@ -60,7 +86,7 @@ const CreateTemplate = () => {
   return (
     <div>
       <h1 style={{ color: "var(--english-violet" }}>Create a New Template</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={addTemplate}>
         <InlineEditTitle text={title} setText={setTitle} />
         {scenarios.map((scenario, scenarioIndex) => {
           const { subtitle, entries } = scenario;
@@ -76,6 +102,7 @@ const CreateTemplate = () => {
                 text={subtitle}
                 setText={handleSubtitleChange}
                 scenarioIndex={scenarioIndex}
+                deleteText={handleDeleteCurrentScenario}
               />
               <div>
                 {entries.map((entry, entryIndex) => {
@@ -135,4 +162,4 @@ const CreateTemplate = () => {
   );
 };
 
-export default CreateTemplate;
+export default AddTemplate;
