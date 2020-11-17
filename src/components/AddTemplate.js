@@ -7,7 +7,7 @@ import InlineEditContent from "./InlineEditContent";
 
 const AddTemplate = () => {
   // eslint-disable-next-line no-unused-vars
-  const { templates, dispatch } = useContext(TemplatesContext);
+  const { templates, dispatchTemplates } = useContext(TemplatesContext);
   const history = useHistory();
 
   const [title, setTitle] = useState("Enter new title");
@@ -21,7 +21,7 @@ const AddTemplate = () => {
   const addTemplate = (event) => {
     event.preventDefault();
     console.log({title, scenarios})
-    dispatch({
+    dispatchTemplates({
       type: "ADD_TEMPLATE",
       title: title === "" ? "Enter new title" : title,
       scenarios:
