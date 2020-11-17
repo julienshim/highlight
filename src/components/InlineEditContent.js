@@ -36,6 +36,10 @@ const InlineEditContent = (props) => {
     }
   });
 
+  useEffect(() => {
+    setInputValue(text);
+  }, [text, setInputValue]);
+
   const onEnter = useCallback(() => {
     if (enter) {
       if (inputRef.current.value !== text) {
@@ -71,8 +75,17 @@ const InlineEditContent = (props) => {
   }, [onEnter, onEsc, isInputActive]);
 
   return (
-    <div className="inline-container inline-content" style={{ display: "flex", margin: 0 }} ref={wrapperRef}>
-      <div className="deleteButton deleteContentButton" onClick={() => deleteText(scenarioIndex, entryIndex)}>{deleteButton}</div>
+    <div
+      className="inline-container inline-content"
+      style={{ display: "flex", margin: 0 }}
+      ref={wrapperRef}
+    >
+      <div
+        className="deleteButton deleteContentButton"
+        onClick={() => deleteText(scenarioIndex, entryIndex)}
+      >
+        {deleteButton}
+      </div>
       <div style={{ padding: "12px" }}>
         <div
           className={`inline-div ${!isInputActive ? "active" : "hidden"}`}
@@ -84,15 +97,7 @@ const InlineEditContent = (props) => {
           {text || placeholder}
         </div>
         <input
-          style={{
-            width:
-              (inputValue.length > placeholder.length
-                ? inputValue.length
-                : placeholder.length + 7) *
-              0.1 *
-              7.7 +
-              "ch",
-          }}
+        style={{ width: (((inputValue.length > placeholder.length ? inputValue.length + 7 : placeholder.length + 7) * .1) * 7.7) + "ch"}}
           ref={inputRef}
           className={`inline-input ${!isInputActive ? "hidden" : "active"}`}
           value={inputValue}

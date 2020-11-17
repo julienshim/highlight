@@ -14,7 +14,8 @@ const InlineEditSubtitle = (props) => {
   const enter = useKeypress("Enter");
   const esc = useKeypress("Escape");
 
-  const placeholder = "Enter new subtitle";
+  const placeholder = "Unsubtitled";
+
   const deleteButton = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -55,9 +56,9 @@ const InlineEditSubtitle = (props) => {
     }
   }, [esc, text, setText, scenarioIndex, inputValue]);
 
-  // useEffect(() => {
-  //   setInputValue(text)
-  // })
+  useEffect(() => {
+    setInputValue(text);
+  }, [text, setInputValue]);
 
   useEffect(() => {
     if (isInputActive) {
@@ -74,8 +75,17 @@ const InlineEditSubtitle = (props) => {
   }, [onEnter, onEsc, isInputActive]);
 
   return (
-    <div className="inline-container inline-subtitle" style={{ display: "flex", margin: 0 }} ref={wrapperRef}>
-      <div className="deleteButton deleteSubtitleButton" onClick={() => deleteText(scenarioIndex)}>{deleteButton}</div>
+    <div
+      className="inline-container inline-subtitle"
+      style={{ display: "flex", margin: 0 }}
+      ref={wrapperRef}
+    >
+      <div
+        className="deleteButton deleteSubtitleButton"
+        onClick={() => deleteText(scenarioIndex)}
+      >
+        {deleteButton}
+      </div>
       <div style={{ padding: "12px" }}>
         <div
           className={`inline-div ${!isInputActive ? "active" : "hidden"}`}
@@ -84,10 +94,10 @@ const InlineEditSubtitle = (props) => {
             setIsInputActive(true);
           }}
         >
-          {text}
+          {inputValue || placeholder}
         </div>
         <input
-          style={{ width: (((inputValue.length > placeholder.length ? inputValue.length : placeholder.length + 7) * .1) * 7.7) + "ch" }}
+        style={{ width: (((inputValue.length > placeholder.length ? inputValue.length + 7 : placeholder.length + 7) * .1) * 7.7) + "ch"}}
           ref={inputRef}
           className={`inline-input ${!isInputActive ? "hidden" : "active"}`}
           value={inputValue}
