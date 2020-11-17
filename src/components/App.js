@@ -1,19 +1,22 @@
 import React, { useEffect, useReducer } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import templateData from "../templateData";
+import noteData from "../noteData";
 
 // components
 import Home from "./Home";
 import Templates from "./Templates";
 import AddTemplate from "./AddTemplate";
-// import UpdateTemplate from "./UpdateTemplate";
+import EditTemplate from "./EditTemplate";
 import Notes from "./Notes";
 
 // reducers
 import templatesReducer from "../reducers/templatesReducer";
+import notesReducer from "../reducers/notesReducer";
 
 // context
 import TemplatesContext from "../context/templates-context";
+import NotesContext from "../context/notes-context";
 
 const routes = [
   {
@@ -31,11 +34,11 @@ const routes = [
     exact: true,
     component: () => <AddTemplate />,
   },
-  // {
-  //   path: "/templates/update/:id",
-  //   exact: true,
-  //   component: () => <UpdateTemplate />,
-  // },
+  {
+    path: "/templates/update/:id",
+    exact: true,
+    component: () => <EditTemplate />,
+  },
   {
     path: "/notes",
     component: () => <Notes />,
@@ -47,15 +50,21 @@ const routes = [
 ];
 
 export default function App() {
-  const [templates, dispatch] = useReducer(templatesReducer, []);
+  const [templates, dispatchTemplates] = useReducer(templatesReducer, []);
+  const [notes, dispatchNotes] = useReducer(notesReducer, []);
 
   const getTemplates = () => {
-    dispatch({ type: "POPULATE_TEMPLATES", templates: templateData });
+    dispatchTemplates({ type: "POPULATE_TEMPLATES", templates: templateData });
   };
+
+  const getNotes = () => {
+    dispatchNotes({ type: "POPULATE_NOTES", notes: noteData});
+  }
 
   useEffect(() => {
     // console.log(templateData)
     getTemplates();
+    getNotes();
   }, []);
 
   return (
@@ -82,7 +91,8 @@ export default function App() {
         </div>
 
         <div style={{ padding: "24px 48px", width: "100%" }}>
-          <TemplatesContext.Provider value={{ templates, dispatch }}>
+          <NotesContext.Provider value={{ notes, dispatchNotes}}>
+          <TemplatesContext.Provider value={{ templates, dispatchTemplates }}>
             <Switch>
               {routes.map((route, index) => (
                 <Route
@@ -94,6 +104,7 @@ export default function App() {
               ))}
             </Switch>
           </TemplatesContext.Provider>
+          </NotesContext.Provider>
         </div>
       </div>
     </Router>
