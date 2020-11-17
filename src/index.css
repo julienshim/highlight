@@ -107,7 +107,16 @@ div.active {
   margin: 48px 0;
 }
 
-.card {
-  margin: 0px 12px 12px 0;
-  background-color: pink;
+div.edit-div {
+  visibility: hidden;
+}
+
+div.card-div:hover > div.edit-div {
+  visibility: visible;
+}
+
+#addIcon {
+  height: 18px;
+  width: 18px;
+  fill: var(--dogwood-rose);
 }
