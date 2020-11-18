@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import {sampleNote, sampleTemplate} from '../sampleData';
+import { sampleNote, sampleTemplate } from "../sampleData";
 
 // components
 import Dashboard from "./Dashboard";
@@ -66,17 +66,41 @@ export default function App() {
   const [notes, dispatchNotes] = useReducer(notesReducer, []);
 
   const getTemplates = () => {
-    dispatchTemplates({ type: "POPULATE_TEMPLATES", templates: sampleTemplate });
+    let templatesData = [];
+
+    if (localStorage.getItem("templates") === null) {
+      templatesData = sampleTemplate;
+      localStorage.setItem("templates", JSON.stringify(sampleTemplate));
+    } else {
+      templatesData = JSON.parse(localStorage.getItem("templates"));
+    }
+    dispatchTemplates({ type: "POPULATE_TEMPLATES", templates: templatesData });
   };
 
   const getNotes = () => {
-    dispatchNotes({ type: "POPULATE_NOTES", notes: sampleNote });
+    let notesData = [];
+
+    if (localStorage.getItem("notes") === null) {
+      notesData = sampleNote;
+      localStorage.setItem("notes", JSON.stringify(sampleNote));
+    } else {
+      notesData = JSON.parse(localStorage.getItem("notes"));
+    }
+    dispatchNotes({ type: "POPULATE_NOTES", notes: notesData });
   };
 
   useEffect(() => {
     getTemplates();
     getNotes();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("templates", JSON.stringify(templates));
+  },[templates])
+
+  useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  },[notes])
 
   return (
     <Router>
