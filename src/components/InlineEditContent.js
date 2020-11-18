@@ -3,7 +3,7 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 import useKeypress from "../hooks/useKeypress";
 
 const InlineEditContent = (props) => {
-  const { text, setText, deleteText, scenarioIndex, entryIndex, type } = props;
+  const { text, setText, deleteText, scenarioIndex, entryIndex } = props;
 
   const [isInputActive, setIsInputActive] = useState(false);
   const [inputValue, setInputValue] = useState(text);
@@ -14,8 +14,9 @@ const InlineEditContent = (props) => {
 
   const enter = useKeypress("Enter");
   const esc = useKeypress("Escape");
+  const tab = useKeypress("Tab");
 
-  const placeholder = "Enter new text";
+  const placeholder = "Untexted";
   const deleteButton = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -30,35 +31,45 @@ const InlineEditContent = (props) => {
   useOnClickOutside(wrapperRef, (event) => {
     if (isInputActive) {
       if (event.target.value !== text) {
-        setText(inputValue, scenarioIndex, entryIndex, type);
+        setText(inputValue, scenarioIndex, entryIndex);
       }
       setIsInputActive(false);
     }
   });
 
-  useEffect(() => {
-    setInputValue(text);
-  }, [text, setInputValue]);
-
   const onEnter = useCallback(() => {
     if (enter) {
       if (inputRef.current.value !== text) {
-        setText(inputValue, scenarioIndex, entryIndex, type);
+        setText(inputValue, scenarioIndex, entryIndex);
       }
       document.activeElement.blur();
       setIsInputActive(false);
     }
-  }, [enter, inputValue, setText, text, scenarioIndex, entryIndex, type]);
+  }, [enter, inputValue, setText, text, scenarioIndex, entryIndex]);
+
+  const onTab = useCallback(() => {
+    if (tab) {
+      if (inputRef.current.value !== text) {
+        setText(inputValue, scenarioIndex);
+      }
+      document.activeElement.blur();
+      setIsInputActive(false);
+    }
+  }, [tab, inputValue, setText, text, scenarioIndex]);
 
   const onEsc = useCallback(() => {
     if (esc) {
-      if (inputRef.current.value !== text) {
-        setText(inputValue, scenarioIndex, entryIndex, type);
-      }
+      setInputValue(text);
       document.activeElement.blur();
       setIsInputActive(false);
     }
-  }, [esc, text, setText, inputValue, scenarioIndex, entryIndex, type]);
+  }, [esc, text]);
+
+  useEffect(() => {
+    if (text) {
+      setInputValue(text);
+    }
+  }, [text, setInputValue]);
 
   useEffect(() => {
     if (isInputActive) {
@@ -70,9 +81,9 @@ const InlineEditContent = (props) => {
     if (isInputActive) {
       onEnter();
       onEsc();
-      // inputRef.current.focus();
+      onTab();
     }
-  }, [onEnter, onEsc, isInputActive]);
+  }, [onEnter, onTab, onEsc, isInputActive]);
 
   return (
     <div
@@ -97,7 +108,15 @@ const InlineEditContent = (props) => {
           {text || placeholder}
         </div>
         <input
-        style={{ width: (((inputValue.length > placeholder.length ? inputValue.length + 7 : placeholder.length + 7) * .1) * 7.7) + "ch"}}
+          style={{
+            width:
+              (inputValue.length > placeholder.length
+                ? inputValue.length + 7
+                : placeholder.length + 7) *
+                0.1 *
+                7.7 +
+              "ch",
+          }}
           ref={inputRef}
           className={`inline-input ${!isInputActive ? "hidden" : "active"}`}
           value={inputValue}

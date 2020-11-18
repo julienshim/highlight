@@ -13,6 +13,7 @@ const InlineEditSubtitle = (props) => {
 
   const enter = useKeypress("Enter");
   const esc = useKeypress("Escape");
+  const tab = useKeypress("Tab");
 
   const placeholder = "Unsubtitled";
 
@@ -46,18 +47,28 @@ const InlineEditSubtitle = (props) => {
     }
   }, [enter, inputValue, setText, text, scenarioIndex]);
 
-  const onEsc = useCallback(() => {
-    if (esc) {
+  const onTab = useCallback(() => {
+    if (tab) {
       if (inputRef.current.value !== text) {
         setText(inputValue, scenarioIndex);
       }
       document.activeElement.blur();
       setIsInputActive(false);
     }
-  }, [esc, text, setText, scenarioIndex, inputValue]);
+  }, [tab, inputValue, setText, text, scenarioIndex]);
+
+  const onEsc = useCallback(() => {
+    if (esc) {
+      setInputValue(text);
+      document.activeElement.blur();
+      setIsInputActive(false);
+    }
+  }, [esc, text]);
 
   useEffect(() => {
-    setInputValue(text);
+    if (text) {
+      setInputValue(text);
+    }
   }, [text, setInputValue]);
 
   useEffect(() => {
@@ -70,9 +81,9 @@ const InlineEditSubtitle = (props) => {
     if (isInputActive) {
       onEnter();
       onEsc();
-      // inputRef.current.focus();
+      onTab();
     }
-  }, [onEnter, onEsc, isInputActive]);
+  }, [onEnter, onTab, onEsc, isInputActive]);
 
   return (
     <div
@@ -97,7 +108,15 @@ const InlineEditSubtitle = (props) => {
           {inputValue || placeholder}
         </div>
         <input
-        style={{ width: (((inputValue.length > placeholder.length ? inputValue.length + 7 : placeholder.length + 7) * .1) * 7.7) + "ch"}}
+          style={{
+            width:
+              (inputValue.length > placeholder.length
+                ? inputValue.length + 7
+                : placeholder.length + 7) *
+                0.1 *
+                7.7 +
+              "ch",
+          }}
           ref={inputRef}
           className={`inline-input ${!isInputActive ? "hidden" : "active"}`}
           value={inputValue}

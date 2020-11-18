@@ -14,8 +14,9 @@ const InlineEditTitle = (props) => {
 
   const enter = useKeypress("Enter");
   const esc = useKeypress("Escape");
+  const tab = useKeypress("Tab");
 
-  const placeholder = "Enter new title";
+  const placeholder = "Untitled";
 
   useOnClickOutside(wrapperRef, (event) => {
     if (isInputActive) {
@@ -36,15 +37,29 @@ const InlineEditTitle = (props) => {
     }
   }, [enter, inputValue, setText, text, scenarioIndex]);
 
-  const onEsc = useCallback(() => {
-    if (esc) {
+  const onTab = useCallback(() => {
+    if (tab) {
       if (inputRef.current.value !== text) {
         setText(inputValue, scenarioIndex);
       }
       document.activeElement.blur();
       setIsInputActive(false);
     }
-  }, [esc, text, setText, inputValue, scenarioIndex]);
+  }, [tab, inputValue, setText, text, scenarioIndex]);
+
+  const onEsc = useCallback(() => {
+    if (esc) {
+      setInputValue(text);
+      document.activeElement.blur();
+      setIsInputActive(false);
+    }
+  }, [esc, text]);
+
+  useEffect(() => {
+    if (text) {
+      setInputValue(text);
+    }
+  }, [text, setInputValue]);
 
   useEffect(() => {
     if (isInputActive) {
@@ -56,8 +71,9 @@ const InlineEditTitle = (props) => {
     if (isInputActive) {
       onEnter();
       onEsc();
+      onTab()
     }
-  }, [onEnter, onEsc, isInputActive]);
+  }, [onEnter, onTab, onEsc, isInputActive]);
 
   return (
     <div className="inline-container inline-title" ref={wrapperRef}>
@@ -65,14 +81,22 @@ const InlineEditTitle = (props) => {
         ref={textRef}
         onClick={() => {
           setIsInputActive(true);
-          inputRef.current.focus()
+          inputRef.current.focus();
         }}
         className={`inline-div ${!isInputActive ? "active" : "hidden"}`}
       >
         {text}
       </div>
       <input
-        style={{ width: (((inputValue.length > placeholder.length ? inputValue.length + 7 : placeholder.length + 7) * .1) * 7.7) + "ch"}}
+        style={{
+          width:
+            (inputValue.length > placeholder.length
+              ? inputValue.length + 7
+              : placeholder.length + 7) *
+              0.1 *
+              7.7 +
+            "ch",
+        }}
         type="text"
         ref={inputRef}
         className={`inline-input ${!isInputActive ? "hidden" : "active"}`}
