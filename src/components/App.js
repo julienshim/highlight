@@ -1,14 +1,15 @@
 import React, { useEffect, useReducer } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import templateData from "../templateData";
-import noteData from "../noteData";
+import {sampleNote, sampleTemplate} from '../sampleData';
 
 // components
-import Home from "./Home";
+import Dashboard from "./Dashboard";
 import Templates from "./Templates";
 import AddTemplate from "./AddTemplate";
 import EditTemplate from "./EditTemplate";
 import Notes from "./Notes";
+import AddNote from "./AddNote";
+import EditNote from "./EditNote";
 
 // reducers
 import templatesReducer from "../reducers/templatesReducer";
@@ -22,7 +23,7 @@ const routes = [
   {
     path: "/",
     exact: true,
-    component: () => <Home />,
+    component: () => <Dashboard />,
   },
   {
     path: "/templates",
@@ -41,7 +42,18 @@ const routes = [
   },
   {
     path: "/notes",
+    exact: true,
     component: () => <Notes />,
+  },
+  {
+    path: "/notes/add",
+    exact: true,
+    component: () => <AddNote />,
+  },
+  {
+    path: "/notes/update/:id",
+    exact: true,
+    component: () => <EditNote />,
   },
   {
     path: "*",
@@ -54,15 +66,14 @@ export default function App() {
   const [notes, dispatchNotes] = useReducer(notesReducer, []);
 
   const getTemplates = () => {
-    dispatchTemplates({ type: "POPULATE_TEMPLATES", templates: templateData });
+    dispatchTemplates({ type: "POPULATE_TEMPLATES", templates: sampleTemplate });
   };
 
   const getNotes = () => {
-    dispatchNotes({ type: "POPULATE_NOTES", notes: noteData});
-  }
+    dispatchNotes({ type: "POPULATE_NOTES", notes: sampleNote });
+  };
 
   useEffect(() => {
-    // console.log(templateData)
     getTemplates();
     getNotes();
   }, []);
@@ -72,38 +83,42 @@ export default function App() {
       <div style={{ display: "flex", minHeight: "100vh" }}>
         <div
           style={{
-            padding: "10px",
-            minWidth: "200px",
-            background: "var(--english-violet)",
+            padding: "32px 24px 10px 24px",
+            minWidth: "100px",
+            backgroundColor: "#ccc",
+            // background: "var(--english-violet)",
           }}
         >
           <ul style={{ listStyleType: "none", padding: 0 }}>
             <li>
-              <Link to="/">Shorthand App</Link>
+              <h3>Highlight</h3>
             </li>
             <li>
-              <Link to="/templates">Templates</Link>
+              <Link to="/">Dashboard</Link>
             </li>
             <li>
               <Link to="/notes">Notes</Link>
+            </li>
+            <li>
+              <Link to="/templates">Templates</Link>
             </li>
           </ul>
         </div>
 
         <div style={{ padding: "24px 48px", width: "100%" }}>
-          <NotesContext.Provider value={{ notes, dispatchNotes}}>
-          <TemplatesContext.Provider value={{ templates, dispatchTemplates }}>
-            <Switch>
-              {routes.map((route, index) => (
-                <Route
-                  key={index}
-                  path={route.path}
-                  exact={route.exact}
-                  component={route.component}
-                />
-              ))}
-            </Switch>
-          </TemplatesContext.Provider>
+          <NotesContext.Provider value={{ notes, dispatchNotes }}>
+            <TemplatesContext.Provider value={{ templates, dispatchTemplates }}>
+              <Switch>
+                {routes.map((route, index) => (
+                  <Route
+                    key={index}
+                    path={route.path}
+                    exact={route.exact}
+                    component={route.component}
+                  />
+                ))}
+              </Switch>
+            </TemplatesContext.Provider>
           </NotesContext.Provider>
         </div>
       </div>

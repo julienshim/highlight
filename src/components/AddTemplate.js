@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import {useHistory} from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import TemplatesContext from "../context/templates-context";
 import InlineEditTitle from "./InlineEditTitle";
 import InlineEditSubtitle from "./InlineEditSubtitle";
@@ -10,36 +10,37 @@ const AddTemplate = () => {
   const { templates, dispatchTemplates } = useContext(TemplatesContext);
   const history = useHistory();
 
-  const [title, setTitle] = useState("Enter new title");
+  const [title, setTitle] = useState("Untitled");
   const [scenarios, setScenarios] = useState([
     {
-      subtitle: "Enter new subtitle",
-      entries: [{ content: "Enter new text", comment: "" }],
+      subtitle: "Unsubtitled",
+      subtitleComments: "",
+      entries: [{ content: "Untexted", contentComments: "" }],
     },
   ]);
 
   const addTemplate = (event) => {
     event.preventDefault();
-    console.log({title, scenarios})
     dispatchTemplates({
       type: "ADD_TEMPLATE",
-      title: title === "" ? "Enter new title" : title,
+      title: title === "" ? "Untitled" : title,
       scenarios:
         scenarios.length === 0
           ? [
               {
-                subtitle: "Enter new subtitle",
-                entries: [{ content: "Enter new text", comment: "" }],
+                subtitle: "Unsubtitled",
+                subtitleComments: "",
+                entries: [{ content: "Untexted", contentComments: "" }],
               },
             ]
           : scenarios,
     });
-    history.push('/templates');
+    history.push("/templates");
   };
 
-  const handleScenarioChange = (newText, scenarioIndex, entryIndex, type) => {
+  const handleContentChange = (newText, scenarioIndex, entryIndex) => {
     const newScenarios = [...scenarios];
-    newScenarios[scenarioIndex].entries[entryIndex][type] = newText;
+    newScenarios[scenarioIndex].entries[entryIndex].content = newText;
     setScenarios(newScenarios);
   };
 
@@ -53,7 +54,7 @@ const AddTemplate = () => {
     const newScenarios = [...scenarios];
     newScenarios[scenarioIndex].entries = [
       ...newScenarios[scenarioIndex].entries,
-      { content: "Enter new text", comment: "" },
+      { content: "Untexted", contentComments: "" },
     ];
     setScenarios(newScenarios);
   };
@@ -77,8 +78,9 @@ const AddTemplate = () => {
     setScenarios([
       ...scenarios,
       {
-        subtitle: "Enter new subtitle",
-        entries: [{ content: "Enter new text", comment: "" }],
+        subtitle: "Unsubtitled",
+        subtitleComments: "",
+        entries: [{ content: "Untexted", contentComments: "" }],
       },
     ]);
   };
@@ -86,76 +88,75 @@ const AddTemplate = () => {
   return (
     <div>
       <h1 style={{ color: "var(--english-violet" }}>Create a New Template</h1>
-      <form onSubmit={addTemplate}>
-        <InlineEditTitle text={title} setText={setTitle} />
-        {scenarios.map((scenario, scenarioIndex) => {
-          const { subtitle, entries } = scenario;
-          return (
-            <div
-              key={`scenario-${scenarioIndex}`}
-              style={{
-                borderLeft: "3px solid var(--blue-munsell)",
-                marginLeft: "24px",
-              }}
-            >
-              <InlineEditSubtitle
-                text={subtitle}
-                setText={handleSubtitleChange}
-                scenarioIndex={scenarioIndex}
-                deleteText={handleDeleteCurrentScenario}
-              />
-              <div>
-                {entries.map((entry, entryIndex) => {
-                  const { content } = entry;
-                  return (
-                    <div
-                      key={`entry${entryIndex}`}
-                      style={{
-                        borderLeft: "3px solid var(--cadet-grey)",
-                        marginLeft: "48px",
-                      }}
-                    >
-                      <InlineEditContent
-                        text={content}
-                        setText={handleScenarioChange}
-                        deleteText={handleDeleteCurrentContent}
-                        scenarioIndex={scenarioIndex}
-                        entryIndex={entryIndex}
-                        type={"content"}
-                      />
-                    </div>
-                  );
-                })}
-                <p
-                  style={{
-                    display: "inline-block",
-                    padding: "6px 4px",
-                    fontWeight: "bold",
-                    marginLeft: "48px",
-                    border: "3px solid var(--cadet-grey)",
-                  }}
-                  onClick={() => handleAddNewContent(scenarioIndex)}
-                >
-                  + New Line
-                </p>
-              </div>
-            </div>
-          );
-        })}
-        <div>
-          <p
+      <InlineEditTitle text={title} setText={setTitle} />
+      {scenarios.map((scenario, scenarioIndex) => {
+        const { subtitle, entries } = scenario;
+        return (
+          <div
+            key={`scenario-${scenarioIndex}`}
             style={{
-              display: "inline-block",
-              padding: "6px 4px",
-              fontWeight: "bold",
+              borderLeft: "3px solid var(--blue-munsell)",
               marginLeft: "24px",
-              border: "3px solid var(--blue-munsell)",
             }}
-            onClick={handleAddNewScenario}
           >
-            + New Section
-          </p>
-        </div>
+            <InlineEditSubtitle
+              text={subtitle}
+              setText={handleSubtitleChange}
+              scenarioIndex={scenarioIndex}
+              deleteText={handleDeleteCurrentScenario}
+            />
+            <div>
+              {entries.map((entry, entryIndex) => {
+                const { content } = entry;
+                return (
+                  <div
+                    key={`entry${entryIndex}`}
+                    style={{
+                      borderLeft: "3px solid var(--cadet-grey)",
+                      marginLeft: "48px",
+                    }}
+                  >
+                    <InlineEditContent
+                      text={content}
+                      setText={handleContentChange}
+                      deleteText={handleDeleteCurrentContent}
+                      scenarioIndex={scenarioIndex}
+                      entryIndex={entryIndex}
+                    />
+                  </div>
+                );
+              })}
+              <p
+                style={{
+                  display: "inline-block",
+                  padding: "6px 4px",
+                  fontWeight: "bold",
+                  marginLeft: "48px",
+                  border: "3px solid var(--cadet-grey)",
+                }}
+                onClick={() => handleAddNewContent(scenarioIndex)}
+              >
+                + New Line
+              </p>
+            </div>
+          </div>
+        );
+      })}
+      <div>
+        <p
+          style={{
+            display: "inline-block",
+            padding: "6px 4px",
+            fontWeight: "bold",
+            marginLeft: "24px",
+            border: "3px solid var(--blue-munsell)",
+          }}
+          onClick={handleAddNewScenario}
+        >
+          + New Section
+        </p>
+      </div>
+      <form onSubmit={addTemplate}>
         <input className="submitButton" type="submit" value="Save" />
       </form>
     </div>
