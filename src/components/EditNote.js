@@ -19,6 +19,7 @@ const EditNote = () => {
   const [scenarios, setScenarios] = useState([]);
   const [footer, setFooter] = useState("");
   const [summary, setSummary] = useState("");
+  const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
     if (notes[id]) {
@@ -29,6 +30,10 @@ const EditNote = () => {
       setFooter(notes[id].footer);
     }
   }, [id, notes]);
+
+  useEffect(() => {
+    setIsSaved(false)
+  },[footer, scenarios, title, header, refId])
 
   const addNote = (event) => {
     event.preventDefault();
@@ -44,7 +49,8 @@ const EditNote = () => {
       footer,
       summary,
     });
-    history.push("/notes");
+    setIsSaved(true);
+    // history.push("/notes");
   };
 
   useEffect(() => {
@@ -143,7 +149,7 @@ const EditNote = () => {
         readOnly
       />
       <form onSubmit={addNote}>
-        <input className="submitButton" type="submit" value="Save" />
+        <input className="submitButton" style={{backgroundColor: isSaved && "var(--dogwood-rose-faded)" }} type="submit" value={isSaved ? "Changes Saved" : "Save"} />
       </form>
       <p
         style={{ marginTop: "50px", cursor: "pointer" }}

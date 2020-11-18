@@ -19,6 +19,11 @@ const EditTemplate = () => {
       entries: [{ content: "Untexted", contentComments: "" }],
     },
   ]);
+  const [isSaved, setIsSaved] = useState(false);
+
+  useEffect(() => {
+    setIsSaved(false);
+  },[title, scenarios])
 
   useEffect(() => {
     if (templates[id]) {
@@ -44,7 +49,8 @@ const EditTemplate = () => {
             ]
           : scenarios,
     });
-    history.push("/templates");
+    setIsSaved(true)
+    // history.push("/templates");
   };
 
   const handleContentChange = (newText, scenarioIndex, entryIndex) => {
@@ -168,7 +174,7 @@ const EditTemplate = () => {
         </p>
       </div>
       <form onSubmit={addTemplate}>
-        <input className="submitButton" type="submit" value="Save" />
+        <input className="submitButton" style={{backgroundColor: isSaved && "var(--dogwood-rose-faded)" }}  type="submit" value={isSaved ? "Changed Saved" : "Save"} />
       </form>
       <p style={{marginTop: "50px", cursor: "pointer"}} onClick={()=> {
         dispatchTemplates({
