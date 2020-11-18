@@ -6,11 +6,11 @@ const templatesReducer = (state, action) => {
       return state.filter((template, templateIndex) => templateIndex !== action.template_id);
     case "ADD_TEMPLATE":
       return [
-        ...state,
         {
           title: action.title,
           scenarios: action.scenarios,
         },
+        ...state,
       ];
     case "EDIT_TEMPLATE":
       return state.map((template, templateIndex) => templateIndex === action.template_id ? {
