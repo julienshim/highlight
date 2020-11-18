@@ -44,23 +44,22 @@ const CommentSubtitle = (props) => {
         setText(inputValue, scenarioIndex);
       }
       document.activeElement.blur();
-      setIsInputActive(false)
+      setIsInputActive(false);
     }
   }, [enter, inputValue, setText, text, scenarioIndex]);
 
   const onEsc = useCallback(() => {
-    
     if (esc) {
       setInputValue(text);
       document.activeElement.blur();
-      setIsInputActive(false)
+      setIsInputActive(false);
     }
   }, [esc, text]);
 
   useEffect(() => {
     if (text) {
       setInputValue(text);
-      setHasText(true)
+      setHasText(true);
     }
   }, [text, setInputValue]);
 
@@ -84,7 +83,7 @@ const CommentSubtitle = (props) => {
         onClick={() => {
           if (!inputValue) {
             setHasText(!hasText);
-            setIsInputActive(true)
+            setIsInputActive(true);
           }
         }}
       >
@@ -98,7 +97,7 @@ const CommentSubtitle = (props) => {
           onClick={() => {
             if (!inputValue) {
               setHasText(!hasText);
-              setIsInputActive(true)
+              setIsInputActive(true);
             }
           }}
         >
@@ -121,9 +120,8 @@ const CommentSubtitle = (props) => {
             placeholder={placeholder}
             onChange={(e) => {
               setIsInputActive(true);
-              setInputValue(e.target.value)
-              }
-            }
+              setInputValue(e.target.value);
+            }}
           />
         )}
       </div>
