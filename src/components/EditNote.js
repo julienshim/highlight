@@ -63,13 +63,13 @@ const EditNote = () => {
       const newSummary = filteredScenarios
         .map((scenario) => {
           const { subtitle, subtitleComments, entries } = scenario;
-          let statement = [`${subtitle} -`];
+          let statement = [`${subtitle}:`];
           if (subtitleComments) {
             statement = [...statement, subtitleComments];
           }
           const flattenedEntries = entries
             .filter((entry) => entry.contentComments)
-            .map((entry) => `${entry.content} ${entry.contentComments}`)
+            .map((entry) => `${entry.content} - ${entry.contentComments}.`)
             .join(" ");
           statement = [...statement, flattenedEntries];
           return statement.join(" ");
