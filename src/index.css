@@ -1,6 +1,7 @@
 :root {
   --english-violet: rgba(65, 60, 88, 1);
   --dogwood-rose: rgba(217, 3, 104, 1);
+  --dogwood-rose-faded: rgba(217, 3, 104, 0.5);
   --silver-pink: rgba(201, 173, 161, 1);
   --cadet-grey: rgba(149, 163, 179, 1);
   --blue-munsell: rgba(37, 142, 166, 1);
