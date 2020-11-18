@@ -25,6 +25,12 @@ const routes = [
     exact: true,
     component: () => <Dashboard />,
   },
+  // This is for github-pages
+  {
+    path: "/highlight",
+    exact: true,
+    component: () => <Dashboard />,
+  },
   {
     path: "/templates",
     exact: true,
