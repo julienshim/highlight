@@ -82,7 +82,8 @@ div.active {
   color: var(--cyber-grape);
 }
 
-.deleteButton {
+.deleteButton,
+.commentButton {
   visibility: hidden;
   fill: var(--dogwood-rose);
   padding: 12px 12px;
@@ -95,7 +96,8 @@ div.active {
   margin: 0;
 } */
 
-.inline-container:hover > .deleteButton {
+.inline-container:hover > .deleteButton,
+.inline-container:hover > .commentButton {
   visibility: visible;
 }
 
@@ -115,8 +117,14 @@ div.card-div:hover > div.edit-div {
   visibility: visible;
 }
 
-#addIcon {
+.add-icon {
   height: 18px;
+  padding: 0 6px;
   width: 18px;
   fill: var(--dogwood-rose);
+}
+
+.highlighter {
+  border: none;
+  background-color: yellow;
 }
