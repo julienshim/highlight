@@ -69,7 +69,7 @@ const EditNote = () => {
           }
           const flattenedEntries = entries
             .filter((entry) => entry.contentComments)
-            .map((entry) => `${entry.content} - ${entry.contentComments}.`)
+            .map((entry) => `${entry.content} - ${entry.contentComments}`)
             .join(" ");
           statement = [...statement, flattenedEntries];
           return statement.join(" ");
