@@ -15,6 +15,7 @@ const CommentSubtitle = (props) => {
 
   const enter = useKeypress("Enter");
   const esc = useKeypress("Escape");
+  const tab = useKeypress("Tab");
 
   const placeholder = "Enter comments here...";
 
@@ -48,6 +49,16 @@ const CommentSubtitle = (props) => {
     }
   }, [enter, inputValue, setText, text, scenarioIndex]);
 
+  const onTab = useCallback(() => {
+    if (tab) {
+      if (inputRef.current.value !== text) {
+        setText(inputValue, scenarioIndex);
+      }
+      document.activeElement.blur();
+      setIsInputActive(false);
+    }
+  }, [tab, inputValue, setText, text, scenarioIndex]);
+
   const onEsc = useCallback(() => {
     if (esc) {
       setInputValue(text);
@@ -62,14 +73,14 @@ const CommentSubtitle = (props) => {
       setHasText(true);
     }
   }, [text, setInputValue]);
-
+  
   useEffect(() => {
     if (isInputActive) {
       onEnter();
       onEsc();
-      // inputRef.current.focus();
+      onTab();
     }
-  }, [onEnter, onEsc, isInputActive]);
+  }, [onEnter, onTab, onEsc, isInputActive]);
 
   return (
     <div
