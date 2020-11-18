@@ -25,7 +25,13 @@ const Home = () => {
         <li>Note Identifier</li>
         <li>Template Selection</li>
       </ul>
-      <p>Users can then click line subtitles or lines of text and comment in the yellow input boxes. A summary of clicked on and commented text will automatically generate at the bottom of the note.</p>
+      <p>Users can then click line subtitles or lines of text and comment in the yellow input boxes. A summary of clicked on and commented text will automatically generate at the bottom of the note. Summaries are structued as follows depending if an item is commented on:</p>
+        <ul>
+          <li>{"<Header>"}</li>
+          <li>{"<Subtitle>: <Subtitle Comment> <Line Text> - <Line Text Comment>"}</li>
+          <li>{"<Footer>"}</li>
+        </ul>
+        <p>Comments are unpunctuated for flexibility on user's preferences with separaters.</p>
       <h2>Updates</h2>
     </Fragment>
   );
