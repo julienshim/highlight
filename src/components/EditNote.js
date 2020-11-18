@@ -30,18 +30,17 @@ const EditNote = () => {
     }
   }, [id, notes]);
 
-  const editNote = (event) => {
+  const addNote = (event) => {
     event.preventDefault();
-    const newBody = {
-      title,
-      scenarios,
-    };
     dispatchNotes({
       type: "EDIT_NOTE",
-      note_refId: parseInt(id),
+      note_id: parseInt(id),
       refId: refId === "" ? "Unidentified" : refId,
       header,
-      body: newBody,
+      body: {
+        title,
+        scenarios,
+      },
       footer,
       summary,
     });
@@ -143,7 +142,7 @@ const EditNote = () => {
         defaultValue={summary}
         readOnly
       />
-      <form onSubmit={editNote}>
+      <form onSubmit={addNote}>
         <input className="submitButton" type="submit" value="Save" />
       </form>
       <p

@@ -42,6 +42,13 @@ const Templates = () => {
         </Link>
       </div>
       <h3>Saved Templates</h3>
+      {(templates.length === 0) && (
+        <div>
+          <p style={{color: "var(--dogwood-rose)", fontWeight: "bold"}}>
+            No saved templates found.
+          </p>
+        </div>
+      )}
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {templates.map((template, templateIndex) => {
           const { title, scenarios } = template;

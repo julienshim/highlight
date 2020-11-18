@@ -15,7 +15,7 @@ const notesReducer = (state, action) => {
         ...state
       ];
     case "EDIT_NOTE":
-      return state.map((note, noteIndex) => noteIndex === action.note_refId ? {
+      return state.map((note, noteIndex) => noteIndex === action.note_id ? {
         refId: action.refId,
         header: action.header,
         body: action.body,

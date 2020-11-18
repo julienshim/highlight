@@ -1,10 +1,13 @@
 import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import NotesContext from "../context/notes-context";
+import TemplatesContext from "../context/notes-context";
 
 const Notes = () => {
   // eslint-disable-next-line no-unused-vars
   const { notes, dispatchNotes } = useContext(NotesContext);
+  // eslint-disable-next-line no-unused-vars
+  const { templates, dispatchTemplates } = useContext(TemplatesContext);
   const history = useHistory();
 
   const editIcon = (
@@ -34,14 +37,29 @@ const Notes = () => {
     <div>
       <h1>Notes</h1>
       <h3>Add Note</h3>
-      <div>
-        <Link to="/notes/add">
-          <h2>
-            <span>{addIcon}</span>Create a New Note
-          </h2>
-        </Link>
-      </div>
+      {templates !== 0 ? (
+        <div>
+          <Link to="/notes/add">
+            <h2>
+              <span>{addIcon}</span>Create a New Note
+            </h2>
+          </Link>
+        </div>
+      ) : (
+        <div>
+          <p style={{color: "var(--dogwood-rose)", fontWeight: "bold"}}>
+            Before you can create a new note. You must create a template first.
+          </p>
+        </div>
+      )}
       <h3>Saved Notes</h3>
+      {(notes.length === 0) && (
+        <div>
+          <p style={{color: "var(--dogwood-rose)", fontWeight: "bold"}}>
+            No saved notes found.
+          </p>
+        </div>
+      )}
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {notes.map((note, noteIndex) => {
           const { refId, body } = note;
