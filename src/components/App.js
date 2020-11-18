@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as HashRouter, Switch, Route, Link } from "react-router-dom";
 import { sampleNote, sampleTemplate } from "../sampleData";
 
 // components
@@ -22,12 +22,6 @@ import NotesContext from "../context/notes-context";
 const routes = [
   {
     path: "/",
-    exact: true,
-    component: () => <Dashboard />,
-  },
-  // This is for github-pages
-  {
-    path: "/highlight",
     exact: true,
     component: () => <Dashboard />,
   },
@@ -109,7 +103,9 @@ export default function App() {
   },[notes])
 
   return (
-    <Router>
+    <HashRouter
+      basename="/highlight"
+    >
       <div style={{ display: "flex", minHeight: "100vh" }}>
         <div
           style={{
@@ -152,6 +148,6 @@ export default function App() {
           </NotesContext.Provider>
         </div>
       </div>
-    </Router>
+    </HashRouter>
   );
 }
