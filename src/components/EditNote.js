@@ -4,6 +4,8 @@ import NotesContext from "../context/notes-context";
 import InlineEditIdentifier from "./InlineEditIdentifier";
 import CommentSubtitle from "./CommentSubtitle";
 import CommentContent from "./CommentContent";
+import CommentHeader from "./CommentHeader";
+import CommentFooter from "./CommentFooter";
 
 const EditNote = () => {
   // eslint-disable-next-line no-unused-vars
@@ -62,12 +64,13 @@ const EditNote = () => {
           }
           const flattenedEntries = entries
             .filter((entry) => entry.contentComments)
-            .map((entry) => `${entry.content} ${entry.contentComments}`).join(" ");
+            .map((entry) => `${entry.content} ${entry.contentComments}`)
+            .join(" ");
           statement = [...statement, flattenedEntries];
           return statement.join(" ");
         })
         .join("\n\n");
-      setSummary([header, newSummary, footer].filter(x => x).join("\n\n"));
+      setSummary([header, newSummary, footer].filter((x) => x).join("\n\n"));
     }
   }, [scenarios, header, footer]);
 
@@ -92,13 +95,7 @@ const EditNote = () => {
         >{`(${title})`}</h3>
       </div>
       <div>
-        <input
-          className="highlighter"
-          type="text"
-          style={{ width: "100%", boxSizing: "border-box" }}
-          value={header}
-          onChange={(event) => setHeader(event.target.value)}
-        />
+        <CommentHeader text={header} setText={setHeader} />
       </div>
       {scenarios.map((scenario, scenarioIndex) => {
         const { subtitle, subtitleComments, entries } = scenario;
@@ -131,13 +128,7 @@ const EditNote = () => {
         );
       })}
       <div>
-        <input
-          className="highlighter"
-          type="text"
-          style={{ width: "100%", boxSizing: "border-box" }}
-          value={footer}
-          onChange={(event) => setFooter(event.target.value)}
-        />
+        <CommentFooter text={footer} setText={setFooter} />
       </div>
 
       <textarea
@@ -147,20 +138,26 @@ const EditNote = () => {
           marginTop: "12px",
           border: "1px solid green",
           boxSizing: "border-box",
-          overflowY: "scroll"
+          overflowY: "scroll",
         }}
-        defaultValue={summary} readOnly/>
+        defaultValue={summary}
+        readOnly
+      />
       <form onSubmit={editNote}>
         <input className="submitButton" type="submit" value="Save" />
       </form>
-      <p style={{marginTop: "50px", cursor: "pointer"}} onClick={()=> {
-        dispatchNotes({
-          type: "REMOVE_NOTE",
-          note_refId: parseInt(id)
-        });
-        history.push("/notes");
-       }
-      }>DELETE NOTE</p>
+      <p
+        style={{ marginTop: "50px", cursor: "pointer" }}
+        onClick={() => {
+          dispatchNotes({
+            type: "REMOVE_NOTE",
+            note_refId: parseInt(id),
+          });
+          history.push("/notes");
+        }}
+      >
+        DELETE NOTE
+      </p>
     </div>
   );
 };
