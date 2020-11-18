@@ -3,7 +3,7 @@ const notesReducer = (state, action) => {
     case "POPULATE_NOTES":
       return action.notes;
     case "REMOVE_NOTE":
-      return state.filter((notes, notesIndex) => notesIndex !== action.notes_refId);
+      return state.filter((notes, notesIndex) => notesIndex !== action.note_refId);
     case "ADD_NOTE":
       return [
         {
@@ -15,7 +15,7 @@ const notesReducer = (state, action) => {
         ...state
       ];
     case "EDIT_NOTE":
-      return state.map((note, noteIndex) => noteIndex === action.notes_refId ? {
+      return state.map((note, noteIndex) => noteIndex === action.note_refId ? {
         refId: action.refId,
         header: action.header,
         body: action.body,
