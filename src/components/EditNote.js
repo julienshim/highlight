@@ -36,7 +36,7 @@ const EditNote = () => {
     };
     dispatchNotes({
       type: "EDIT_NOTE",
-      notes_refId: parseInt(id),
+      note_refId: parseInt(id),
       refId: refId === "" ? "Unidentified" : refId,
       header,
       body: newBody,
@@ -156,7 +156,7 @@ const EditNote = () => {
       <p style={{marginTop: "50px", cursor: "pointer"}} onClick={()=> {
         dispatchNotes({
           type: "REMOVE_NOTE",
-          notes_refId: parseInt(id)
+          note_refId: parseInt(id)
         });
         history.push("/notes");
        }
