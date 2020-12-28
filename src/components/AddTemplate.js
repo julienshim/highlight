@@ -95,7 +95,7 @@ const AddTemplate = () => {
           <div
             key={`scenario-${scenarioIndex}`}
             style={{
-              borderLeft: "3px solid var(--blue-munsell)",
+              // borderLeft: "3px solid var(--blue-munsell)",
               marginLeft: "24px",
             }}
           >
@@ -112,7 +112,7 @@ const AddTemplate = () => {
                   <div
                     key={`entry${entryIndex}`}
                     style={{
-                      borderLeft: "3px solid var(--cadet-grey)",
+                      // borderLeft: "3px solid var(--cadet-grey)",
                       marginLeft: "48px",
                     }}
                   >
@@ -131,7 +131,7 @@ const AddTemplate = () => {
                   display: "inline-block",
                   padding: "6px 4px",
                   fontWeight: "bold",
-                  marginLeft: "48px",
+                  marginLeft: "96px",
                   border: "3px solid var(--cadet-grey)",
                 }}
                 onClick={() => handleAddNewContent(scenarioIndex)}
@@ -148,7 +148,7 @@ const AddTemplate = () => {
             display: "inline-block",
             padding: "6px 4px",
             fontWeight: "bold",
-            marginLeft: "24px",
+            marginLeft: "72px",
             border: "3px solid var(--blue-munsell)",
           }}
           onClick={handleAddNewScenario}
