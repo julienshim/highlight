@@ -85,6 +85,17 @@ const AddTemplate = () => {
     ]);
   };
 
+  const flattenData = (t, s) => {
+    console.log(t,s);
+    const tS = `# ${t}`
+    const flatS = s.map(x => {
+      const {subtitle, entries} = x;
+      const entriesS = entries.map(entry => `* ${entry.content}`).join("\n");
+      return `## ${subtitle}\n${entriesS}`;
+    }).join("\n");
+    return [tS, flatS].join("\n");
+  }
+
   return (
     <div>
       <h1 style={{ color: "var(--english-violet" }}>Create a New Template</h1>
@@ -156,6 +167,7 @@ const AddTemplate = () => {
           + New Section
         </p>
       </div>
+      <div><textarea value={flattenData(title, scenarios)}/></div>
       <form onSubmit={addTemplate}>
         <input className="submitButton" type="submit" value="Save" />
       </form>
