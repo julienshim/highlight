@@ -4,6 +4,8 @@ import TemplatesContext from "../context/templates-context";
 import InlineEditTitle from "./InlineEditTitle";
 import InlineEditSubtitle from "./InlineEditSubtitle";
 import InlineEditContent from "./InlineEditContent";
+import AddBulkLines from "./AddBulkLines";
+
 
 const AddTemplate = () => {
   // eslint-disable-next-line no-unused-vars
@@ -15,7 +17,9 @@ const AddTemplate = () => {
     {
       subtitle: "Unsubtitled",
       subtitleComments: "",
-      entries: [{ content: "Untexted", contentComments: "" }],
+      entries: [
+        { content: "Untexted", contentComments: "" },
+      ],
     },
   ]);
 
@@ -80,21 +84,12 @@ const AddTemplate = () => {
       {
         subtitle: "Unsubtitled",
         subtitleComments: "",
-        entries: [{ content: "Untexted", contentComments: "" }],
+        entries: [
+          { content: "Untexted", contentComments: "" },
+        ]
       },
     ]);
   };
-
-  const flattenData = (t, s) => {
-    console.log(t,s);
-    const tS = `# ${t}`
-    const flatS = s.map(x => {
-      const {subtitle, entries} = x;
-      const entriesS = entries.map(entry => `* ${entry.content}`).join("\n");
-      return `## ${subtitle}\n${entriesS}`;
-    }).join("\n");
-    return [tS, flatS].join("\n");
-  }
 
   return (
     <div>
@@ -106,7 +101,6 @@ const AddTemplate = () => {
           <div
             key={`scenario-${scenarioIndex}`}
             style={{
-              // borderLeft: "3px solid var(--blue-munsell)",
               marginLeft: "24px",
             }}
           >
@@ -123,7 +117,6 @@ const AddTemplate = () => {
                   <div
                     key={`entry${entryIndex}`}
                     style={{
-                      // borderLeft: "3px solid var(--cadet-grey)",
                       marginLeft: "48px",
                     }}
                   >
@@ -137,18 +130,7 @@ const AddTemplate = () => {
                   </div>
                 );
               })}
-              <p
-                style={{
-                  display: "inline-block",
-                  padding: "6px 4px",
-                  fontWeight: "bold",
-                  marginLeft: "96px",
-                  border: "3px solid var(--cadet-grey)",
-                }}
-                onClick={() => handleAddNewContent(scenarioIndex)}
-              >
-                + New Line
-              </p>
+              <AddBulkLines scenarioIndex={scenarioIndex} handleAddNewContent={handleAddNewContent}/>
             </div>
           </div>
         );
@@ -167,7 +149,6 @@ const AddTemplate = () => {
           + New Section
         </p>
       </div>
-      <div><textarea value={flattenData(title, scenarios)}/></div>
       <form onSubmit={addTemplate}>
         <input className="submitButton" type="submit" value="Save" />
       </form>
