@@ -23,7 +23,7 @@ const AddTemplate = () => {
     },
   ]);
 
-  const addTemplate = (event) => {
+  const handleAddTemplate = (event) => {
     event.preventDefault();
     dispatchTemplates({
       type: "ADD_TEMPLATE",
@@ -54,11 +54,18 @@ const AddTemplate = () => {
     setScenarios(newScenarios);
   };
 
-  const handleAddNewContent = (scenarioIndex) => {
+  const handleAddNewContent = (scenarioIndex, contentArr) => {
     const newScenarios = [...scenarios];
+    const processedContent = contentArr === null 
+      ? [{ content: "Untexted", contentComments: "" }]
+      : contentArr.map(content => {
+        const tmp = { content, contentComments: "" };
+        return tmp;
+      });
+
     newScenarios[scenarioIndex].entries = [
       ...newScenarios[scenarioIndex].entries,
-      { content: "Untexted", contentComments: "" },
+      ...processedContent,
     ];
     setScenarios(newScenarios);
   };
@@ -149,7 +156,7 @@ const AddTemplate = () => {
           + New Section
         </p>
       </div>
-      <form onSubmit={addTemplate}>
+      <form onSubmit={handleAddTemplate}>
         <input className="submitButton" type="submit" value="Save" />
       </form>
     </div>

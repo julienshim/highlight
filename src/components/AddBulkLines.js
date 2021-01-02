@@ -6,7 +6,8 @@ const AddBulkLines = ({scenarioIndex, handleAddNewContent}) => {
 
   const processBulkLines = (event) => {
     event.preventDefault();
-    console.log("adding multi lines");
+    const inputArr = inputValue.split("\n").filter(input => input);
+    handleAddNewContent(scenarioIndex, inputArr);
     setIsInputActive(false)
   };
 
@@ -21,7 +22,7 @@ const AddBulkLines = ({scenarioIndex, handleAddNewContent}) => {
         marginLeft: "96px",
         border: "2px solid var(--cadet-grey)",
       }}
-      onClick={() => handleAddNewContent(scenarioIndex)}
+      onClick={() => handleAddNewContent(scenarioIndex, null)}
     >
       + Add Line
     </span>
@@ -70,6 +71,8 @@ const AddBulkLines = ({scenarioIndex, handleAddNewContent}) => {
             width: "100%",
             padding: "8px 15px",
           }}
+          value={inputValue}
+          onChange={(event) => setInputValue(event.target.value)}
         />
         <form onSubmit={processBulkLines}>
           <input className="submitButton" type="submit" value="Add Lines" />
