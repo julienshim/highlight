@@ -4,6 +4,7 @@ import TemplatesContext from "../context/templates-context";
 import InlineEditTitle from "./InlineEditTitle";
 import InlineEditSubtitle from "./InlineEditSubtitle";
 import InlineEditContent from "./InlineEditContent";
+import AddBulkLines from "./AddBulkLines";
 
 const EditTemplate = () => {
   // eslint-disable-next-line no-unused-vars
@@ -32,7 +33,7 @@ const EditTemplate = () => {
     }
   }, [id, templates]);
 
-  const addTemplate = (event) => {
+  const handleAddTemplate = (event) => {
     event.preventDefault();
     dispatchTemplates({
       type: "EDIT_TEMPLATE",
@@ -65,11 +66,17 @@ const EditTemplate = () => {
     setScenarios(newScenarios);
   };
 
-  const handleAddNewContent = (scenarioIndex) => {
+  const handleAddNewContent = (scenarioIndex, contentArr) => {
     const newScenarios = [...scenarios];
+    const processedContent = contentArr === null
+      ? [{ content: "Untexted", contentComments: ""}]
+      : contentArr.map(content => {
+        const tmp = {content, contentComments: ""};
+        return tmp
+      })
     newScenarios[scenarioIndex].entries = [
       ...newScenarios[scenarioIndex].entries,
-      { content: "Untexted", contentComments: "" },
+      ...processedContent
     ];
     setScenarios(newScenarios);
   };
@@ -112,7 +119,6 @@ const EditTemplate = () => {
           <div
             key={`scenario-${scenarioIndex}`}
             style={{
-              borderLeft: "3px solid var(--blue-munsell)",
               marginLeft: "24px",
             }}
           >
@@ -129,7 +135,6 @@ const EditTemplate = () => {
                   <div
                     key={`entry${entryIndex}`}
                     style={{
-                      borderLeft: "3px solid var(--cadet-grey)",
                       marginLeft: "48px",
                     }}
                   >
@@ -143,18 +148,7 @@ const EditTemplate = () => {
                   </div>
                 );
               })}
-              <p
-                style={{
-                  display: "inline-block",
-                  padding: "6px 4px",
-                  fontWeight: "bold",
-                  marginLeft: "48px",
-                  border: "3px solid var(--cadet-grey)",
-                }}
-                onClick={() => handleAddNewContent(scenarioIndex)}
-              >
-                + New Line
-              </p>
+              <AddBulkLines scenarioIndex={scenarioIndex} handleAddNewContent={handleAddNewContent}/>
             </div>
           </div>
         );
@@ -173,8 +167,8 @@ const EditTemplate = () => {
           + New Section
         </p>
       </div>
-      <form onSubmit={addTemplate}>
-        <input className="submitButton" style={{backgroundColor: isSaved && "var(--dogwood-rose-faded)" }}  type="submit" value={isSaved ? "Changed Saved" : "Save"} />
+      <form onSubmit={handleAddTemplate}>
+        <input className="submitButton" style={{backgroundColor: isSaved && "var(--dogwood-rose-faded)" }}  type="submit" value={isSaved ? "Changes Saved" : "Save"} />
       </form>
       <p style={{marginTop: "50px", cursor: "pointer"}} onClick={()=> {
         dispatchTemplates({
