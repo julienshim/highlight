@@ -2,12 +2,13 @@ import React, { useState, Fragment } from "react";
 
 const AddBulkLines = ({scenarioIndex, handleAddNewContent}) => {
   const [isInputActive, setIsInputActive] = useState(false);
-  const [inputValue, setInputValue] = useState();
+  const [inputValue, setInputValue] = useState("");
 
   const processBulkLines = (event) => {
     event.preventDefault();
     const inputArr = inputValue.split("\n").filter(input => input);
     handleAddNewContent(scenarioIndex, inputArr);
+    setInputValue("")
     setIsInputActive(false)
   };
 
