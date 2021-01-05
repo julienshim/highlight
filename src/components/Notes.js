@@ -1,25 +1,14 @@
 import React, { useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import NotesContext from "../context/notes-context";
 import TemplatesContext from "../context/notes-context";
+import NotesEditDiv from './NotesEditDiv';
 
 const Notes = () => {
   // eslint-disable-next-line no-unused-vars
   const { notes, dispatchNotes } = useContext(NotesContext);
   // eslint-disable-next-line no-unused-vars
   const { templates, dispatchTemplates } = useContext(TemplatesContext);
-  const history = useHistory();
-
-  const editIcon = (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-    >
-      <path d="M14.078 4.232l-12.64 12.639-1.438 7.129 7.127-1.438 12.641-12.64-5.69-5.69zm-10.369 14.893l-.85-.85 11.141-11.125.849.849-11.14 11.126zm2.008 2.008l-.85-.85 11.141-11.125.85.85-11.141 11.125zm18.283-15.444l-2.816 2.818-5.691-5.691 2.816-2.816 5.691 5.689z" />
-    </svg>
-  );
 
   const addIcon = (
     <svg
@@ -40,9 +29,9 @@ const Notes = () => {
       {templates !== 0 ? (
         <div>
           <Link to="/notes/add">
-            <h2>
+            <p style={{fontSize: "1.5rem"}}>
               <span>{addIcon}</span>Create a New Note
-            </h2>
+            </p>
           </Link>
         </div>
       ) : (
@@ -70,6 +59,7 @@ const Notes = () => {
               key={`note-${noteIndex}`}
               style={{
                 width: "250px",
+                height: "250px",
                 border: "1px solid var(--blue-munsell)",
                 margin: "6px",
               }}
@@ -85,6 +75,7 @@ const Notes = () => {
                       margin: "0",
                       backgroundColor: "var(--blue-munsell)",
                       color: "white",
+                      height: "25px",
                     }}
                   >
                     {refId}
@@ -95,33 +86,7 @@ const Notes = () => {
                     </p>
                   </div>
                 </div>
-                <div
-                  className="edit-div"
-                  style={{
-                    position: "absolute",
-                    left: 0,
-                    top: 0,
-                    width: "100%",
-                    height: "100%",
-                  }}
-                >
-                  <div
-                    style={{
-                      backgroundColor: "var(--cadet-grey)",
-                      display: "flex",
-                      alignItems: "center",
-                      height: "100%",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <div
-                      style={{cursor: "pointer"}}
-                      onClick={() => history.push(`/notes/update/${noteIndex}`)}
-                    >
-                      {editIcon}
-                    </div>
-                  </div>
-                </div>
+                <NotesEditDiv noteIndex={noteIndex} dispatchNotes={dispatchNotes}/>
               </div>
             </div>
           );
