@@ -124,7 +124,7 @@ div.edit-div {
   visibility: hidden;
 }
 
-div.card-div:hover > div.edit-div {
+div.card-container:hover div.edit-div {
   visibility: visible;
 }
 
@@ -172,5 +172,18 @@ div.card-div:hover > div.edit-div {
 }
 
 .edit-icon:hover {
-  fill: #ccc
+  fill: var(--blue-munsell);
+}
+
+/* Links */
+
+a:link,
+a:visited,
+a:active {
+  color: var(--english-violet);
+  text-decoration: none;
+}
+
+a:hover {
+  font-weight: bold;
 }
