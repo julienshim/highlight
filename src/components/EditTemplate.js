@@ -6,6 +6,8 @@ import InlineEditSubtitle from "./InlineEditSubtitle";
 import InlineEditContent from "./InlineEditContent";
 import AddBulkLines from "./AddBulkLines";
 import DeleteButton from "./DeleteButton";
+import SaveButton from "./SaveButton";
+import AddSectionButton from './AddSectionButton';
 
 const EditTemplate = () => {
   // eslint-disable-next-line no-unused-vars
@@ -25,7 +27,7 @@ const EditTemplate = () => {
 
   useEffect(() => {
     setIsSaved(false);
-  },[title, scenarios])
+  }, [title, scenarios])
 
   useEffect(() => {
     if (templates[id]) {
@@ -43,12 +45,12 @@ const EditTemplate = () => {
       scenarios:
         scenarios.length === 0
           ? [
-              {
-                subtitle: "Unsubtitled",
-                subtitleComments: "",
-                entries: [{ content: "Untexted", contentComments: "" }],
-              },
-            ]
+            {
+              subtitle: "Unsubtitled",
+              subtitleComments: "",
+              entries: [{ content: "Untexted", contentComments: "" }],
+            },
+          ]
           : scenarios,
     });
     setIsSaved(true)
@@ -70,9 +72,9 @@ const EditTemplate = () => {
   const handleAddNewContent = (scenarioIndex, contentArr) => {
     const newScenarios = [...scenarios];
     const processedContent = contentArr === null
-      ? [{ content: "Untexted", contentComments: ""}]
+      ? [{ content: "Untexted", contentComments: "" }]
       : contentArr.map(content => {
-        const tmp = {content, contentComments: ""};
+        const tmp = { content, contentComments: "" };
         return tmp
       })
     newScenarios[scenarioIndex].entries = [
@@ -119,8 +121,8 @@ const EditTemplate = () => {
 
   return (
     <div>
-      <h1 style={{ color: "var(--english-violet" }}>
-        Edit <span className="sub-h1">{title}</span> template
+      <h1 style={{ color: "var(--english-violet)" }}>
+        Edit <span>{title}</span> template
       </h1>
       <InlineEditTitle text={title} setText={setTitle} />
       {scenarios.map((scenario, scenarioIndex) => {
@@ -158,32 +160,18 @@ const EditTemplate = () => {
                   </div>
                 );
               })}
-              <AddBulkLines scenarioIndex={scenarioIndex} handleAddNewContent={handleAddNewContent}/>
+              <AddBulkLines scenarioIndex={scenarioIndex} handleAddNewContent={handleAddNewContent} />
             </div>
           </div>
         );
       })}
       <div>
-        <p
-          style={{
-            display: "inline-block",
-            boxSizing: "border-box",
-            fontSize: "0.8rem",
-            padding: "12px 24px",
-            cursor: "pointer",
-            fontWeight: "bold",
-            marginLeft: "72px",
-            border: "2px solid var(--blue-munsell)",
-          }}
-          onClick={handleAddNewScenario}
-        >
-          New Section
-        </p>
+          <AddSectionButton handleAddNewScenario={handleAddNewScenario}/>
       </div>
       <form onSubmit={handleAddTemplate}>
-        <input className="submitButton" style={{backgroundColor: isSaved && "var(--dogwood-rose-faded)" }}  type="submit" value={isSaved ? "Changes Saved" : "Save"} />
+          <SaveButton isSaved={isSaved}/>
       </form>
-      <DeleteButton deleteAction={handleDeleteTemplate} type="template"/>
+      <DeleteButton deleteAction={handleDeleteTemplate} type="template" />
     </div>
   );
 };
