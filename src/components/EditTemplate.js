@@ -5,6 +5,7 @@ import InlineEditTitle from "./InlineEditTitle";
 import InlineEditSubtitle from "./InlineEditSubtitle";
 import InlineEditContent from "./InlineEditContent";
 import AddBulkLines from "./AddBulkLines";
+import DeleteButton from "./DeleteButton";
 
 const EditTemplate = () => {
   // eslint-disable-next-line no-unused-vars
@@ -107,10 +108,19 @@ const EditTemplate = () => {
     ]);
   };
 
+  const handleDeleteTemplate = () => {
+    console.log('in here')
+    dispatchTemplates({
+      type: "REMOVE_TEMPLATE",
+      template_id: parseInt(id),
+    });
+    history.push("/templates");
+  }
+
   return (
     <div>
       <h1 style={{ color: "var(--english-violet" }}>
-        Edit <span style={{ color: "red" }}>{title}</span> template
+        Edit <span className="sub-h1">{title}</span> template
       </h1>
       <InlineEditTitle text={title} setText={setTitle} />
       {scenarios.map((scenario, scenarioIndex) => {
@@ -157,27 +167,23 @@ const EditTemplate = () => {
         <p
           style={{
             display: "inline-block",
-            padding: "6px 4px",
+            boxSizing: "border-box",
+            fontSize: "0.8rem",
+            padding: "12px 24px",
+            cursor: "pointer",
             fontWeight: "bold",
-            marginLeft: "24px",
-            border: "3px solid var(--blue-munsell)",
+            marginLeft: "72px",
+            border: "2px solid var(--blue-munsell)",
           }}
           onClick={handleAddNewScenario}
         >
-          + New Section
+          New Section
         </p>
       </div>
       <form onSubmit={handleAddTemplate}>
         <input className="submitButton" style={{backgroundColor: isSaved && "var(--dogwood-rose-faded)" }}  type="submit" value={isSaved ? "Changes Saved" : "Save"} />
       </form>
-      <p style={{marginTop: "50px", cursor: "pointer"}} onClick={()=> {
-        dispatchTemplates({
-          type: "REMOVE_TEMPLATE",
-          template_id: parseInt(id)
-        });
-        history.push("/templates");
-       }
-      }>DELETE TEMPLATE</p>
+      <DeleteButton deleteAction={handleDeleteTemplate} type="template"/>
     </div>
   );
 };
