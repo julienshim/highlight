@@ -129,3 +129,21 @@ div.card-div:hover > div.edit-div {
   border: none;
   background-color: yellow;
 }
+
+.delete-button:hover {
+  font-weight: bold;
+}
+
+.confirm-button {
+  border: "3px solid blue";
+}
+
+/* .confirm-button:hover {
+  border: "3px solid yellow";
+} */
+
+.sub-h1 {
+  -webkit-text-fill-color: white;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
