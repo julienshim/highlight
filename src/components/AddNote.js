@@ -49,6 +49,7 @@ const AddNote = () => {
           style={{
             outline: "none",
             border: "1px solid var(--english-violet)",
+            cursor: "pointer"
           }}
         >
           {templates.map((template, templateIndex) => {
@@ -66,7 +67,7 @@ const AddNote = () => {
         </select>
       </div>
       <form onSubmit={addNote}>
-        <input className="submitButton" type="submit" value="Create" />
+        <input className="submitButton" style={{cursor: "pointer"}} type="submit" value="Create" />
       </form>
     </div>
   );
