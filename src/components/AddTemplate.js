@@ -146,18 +146,21 @@ const AddTemplate = () => {
         <p
           style={{
             display: "inline-block",
-            padding: "6px 4px",
+            boxSizing: "border-box",
+            padding: "12px 24px",
+            fontSize: "0.8rem",
+            cursor: "pointer",
             fontWeight: "bold",
             marginLeft: "72px",
-            border: "3px solid var(--blue-munsell)",
+            border: "2px solid var(--blue-munsell)",
           }}
           onClick={handleAddNewScenario}
         >
-          + New Section
+          New Section
         </p>
       </div>
       <form onSubmit={handleAddTemplate}>
-        <input className="submitButton" type="submit" value="Save" />
+        <input className="submitButton" type="submit" style={{cursor: "pointer"}} value="Save" />
       </form>
     </div>
   );
