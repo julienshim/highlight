@@ -5,6 +5,7 @@ import InlineEditTitle from "./InlineEditTitle";
 import InlineEditSubtitle from "./InlineEditSubtitle";
 import InlineEditContent from "./InlineEditContent";
 import AddBulkLines from "./AddBulkLines";
+import AddSectionButton from "./AddSectionButton";
 
 
 const AddTemplate = () => {
@@ -143,24 +144,10 @@ const AddTemplate = () => {
         );
       })}
       <div>
-        <p
-          style={{
-            display: "inline-block",
-            boxSizing: "border-box",
-            padding: "12px 24px",
-            fontSize: "0.8rem",
-            cursor: "pointer",
-            fontWeight: "bold",
-            marginLeft: "72px",
-            border: "2px solid var(--blue-munsell)",
-          }}
-          onClick={handleAddNewScenario}
-        >
-          New Section
-        </p>
+        <AddSectionButton handleAddNewScenario={handleAddNewScenario} />
       </div>
       <form onSubmit={handleAddTemplate}>
-        <input className="submitButton" type="submit" style={{cursor: "pointer"}} value="Save" />
+        <input className="submit-button" type="submit" style={{cursor: "pointer"}} value="Save" />
       </form>
     </div>
   );
