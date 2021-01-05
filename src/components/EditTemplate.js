@@ -7,7 +7,7 @@ import InlineEditContent from "./InlineEditContent";
 import AddBulkLines from "./AddBulkLines";
 import DeleteButton from "./DeleteButton";
 import SaveButton from "./SaveButton";
-import AddSectionButton from './AddSectionButton';
+import AddSectionButton from "./AddSectionButton";
 
 const EditTemplate = () => {
   // eslint-disable-next-line no-unused-vars
@@ -27,7 +27,7 @@ const EditTemplate = () => {
 
   useEffect(() => {
     setIsSaved(false);
-  }, [title, scenarios])
+  }, [title, scenarios]);
 
   useEffect(() => {
     if (templates[id]) {
@@ -45,15 +45,15 @@ const EditTemplate = () => {
       scenarios:
         scenarios.length === 0
           ? [
-            {
-              subtitle: "Unsubtitled",
-              subtitleComments: "",
-              entries: [{ content: "Untexted", contentComments: "" }],
-            },
-          ]
+              {
+                subtitle: "Unsubtitled",
+                subtitleComments: "",
+                entries: [{ content: "Untexted", contentComments: "" }],
+              },
+            ]
           : scenarios,
     });
-    setIsSaved(true)
+    setIsSaved(true);
     // history.push("/templates");
   };
 
@@ -71,15 +71,16 @@ const EditTemplate = () => {
 
   const handleAddNewContent = (scenarioIndex, contentArr) => {
     const newScenarios = [...scenarios];
-    const processedContent = contentArr === null
-      ? [{ content: "Untexted", contentComments: "" }]
-      : contentArr.map(content => {
-        const tmp = { content, contentComments: "" };
-        return tmp
-      })
+    const processedContent =
+      contentArr === null
+        ? [{ content: "Untexted", contentComments: "" }]
+        : contentArr.map((content) => {
+            const tmp = { content, contentComments: "" };
+            return tmp;
+          });
     newScenarios[scenarioIndex].entries = [
       ...newScenarios[scenarioIndex].entries,
-      ...processedContent
+      ...processedContent,
     ];
     setScenarios(newScenarios);
   };
@@ -111,13 +112,12 @@ const EditTemplate = () => {
   };
 
   const handleDeleteTemplate = () => {
-    console.log('in here')
     dispatchTemplates({
       type: "REMOVE_TEMPLATE",
       template_id: parseInt(id),
     });
     history.push("/templates");
-  }
+  };
 
   return (
     <div>
@@ -160,16 +160,19 @@ const EditTemplate = () => {
                   </div>
                 );
               })}
-              <AddBulkLines scenarioIndex={scenarioIndex} handleAddNewContent={handleAddNewContent} />
+              <AddBulkLines
+                scenarioIndex={scenarioIndex}
+                handleAddNewContent={handleAddNewContent}
+              />
             </div>
           </div>
         );
       })}
       <div>
-          <AddSectionButton handleAddNewScenario={handleAddNewScenario}/>
+        <AddSectionButton handleAddNewScenario={handleAddNewScenario} />
       </div>
       <form onSubmit={handleAddTemplate}>
-          <SaveButton isSaved={isSaved}/>
+        <SaveButton isSaved={isSaved} />
       </form>
       <DeleteButton deleteAction={handleDeleteTemplate} type="template" />
     </div>
