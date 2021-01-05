@@ -115,7 +115,7 @@ const Notes = () => {
                     }}
                   >
                     <div
-                      style={{}}
+                      style={{cursor: "pointer"}}
                       onClick={() => history.push(`/notes/update/${noteIndex}`)}
                     >
                       {editIcon}
