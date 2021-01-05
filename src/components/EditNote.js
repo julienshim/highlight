@@ -6,6 +6,7 @@ import CommentSubtitle from "./CommentSubtitle";
 import CommentContent from "./CommentContent";
 import CommentHeader from "./CommentHeader";
 import CommentFooter from "./CommentFooter";
+import DeleteButton from "./DeleteButton";
 
 const EditNote = () => {
   // eslint-disable-next-line no-unused-vars
@@ -91,6 +92,14 @@ const EditNote = () => {
     setScenarios(newScenarios);
   };
 
+  const handleDeleteNote = () => {
+    dispatchNotes({
+      type: "REMOVE_NOTE",
+      note_refId: parseInt(id),
+    });
+    history.push("/notes");
+  }
+
   return (
     <div>
       <div style={{ display: "flex", flexDirection: "row" }}>
@@ -149,20 +158,9 @@ const EditNote = () => {
         readOnly
       />
       <form onSubmit={addNote}>
-        <input className="submitButton" style={{backgroundColor: isSaved && "var(--dogwood-rose-faded)" }} type="submit" value={isSaved ? "Changes Saved" : "Save"} />
+        <input className="submitButton" style={{backgroundColor: isSaved && "var(--dogwood-rose-faded)", cursor: "pointer" }} type="submit" value={isSaved ? "Changes Saved" : "Save"} />
       </form>
-      <p
-        style={{ marginTop: "50px", cursor: "pointer" }}
-        onClick={() => {
-          dispatchNotes({
-            type: "REMOVE_NOTE",
-            note_refId: parseInt(id),
-          });
-          history.push("/notes");
-        }}
-      >
-        DELETE NOTE
-      </p>
+      <DeleteButton deleteAction={handleDeleteNote} type='note' />
     </div>
   );
 };
