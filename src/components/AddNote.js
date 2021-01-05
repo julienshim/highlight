@@ -67,7 +67,7 @@ const AddNote = () => {
         </select>
       </div>
       <form onSubmit={addNote}>
-        <input className="submitButton" style={{cursor: "pointer"}} type="submit" value="Create" />
+        <input className="submit-button" style={{cursor: "pointer"}} type="submit" value="Create" />
       </form>
     </div>
   );
