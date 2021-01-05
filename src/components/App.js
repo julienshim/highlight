@@ -123,10 +123,10 @@ export default function App() {
               <Link to="/">Dashboard</Link>
             </li>
             <li>
-              <Link to="/notes">Notes</Link>
+              <Link to="/templates">Templates</Link>
             </li>
             <li>
-              <Link to="/templates">Templates</Link>
+              <Link to="/notes">Notes</Link>
             </li>
           </ul>
         </div>
