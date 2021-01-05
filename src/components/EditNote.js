@@ -7,6 +7,7 @@ import CommentContent from "./CommentContent";
 import CommentHeader from "./CommentHeader";
 import CommentFooter from "./CommentFooter";
 import DeleteButton from "./DeleteButton";
+import SaveButton from './SaveButton';
 
 const EditNote = () => {
   // eslint-disable-next-line no-unused-vars
@@ -158,7 +159,7 @@ const EditNote = () => {
         readOnly
       />
       <form onSubmit={addNote}>
-        <input className="submitButton" style={{backgroundColor: isSaved && "var(--dogwood-rose-faded)", cursor: "pointer" }} type="submit" value={isSaved ? "Changes Saved" : "Save"} />
+        <SaveButton isSaved={isSaved} />
       </form>
       <DeleteButton deleteAction={handleDeleteNote} type='note' />
     </div>
