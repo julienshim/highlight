@@ -1,6 +1,7 @@
 import React, { useState, Fragment } from "react";
 
-const AddBulkLines = ({ scenarioIndex, handleAddNewContent }) => {
+const AddBulkLines = (props) => {
+  const { scenarioIndex, handleAddNewContent } = props;
   const [isInputActive, setIsInputActive] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
@@ -27,17 +28,19 @@ const AddBulkLines = ({ scenarioIndex, handleAddNewContent }) => {
             fontSize: "0.8rem",
             fontWeight: "bold",
             marginLeft: "96px",
+            cursor: "pointer",
             border: "2px solid var(--cadet-grey)",
           }}
           onClick={() => handleAddNewContent(scenarioIndex, null)}
         >
-          + Add Line
+          Add Line
         </span>
         <span
           style={{
             display: "inline-block",
             padding: "12px 24px",
             fontSize: "0.8rem",
+            cursor: "pointer",
             fontWeight: "bold",
             marginLeft: "6px",
             border: "2px solid var(--cadet-grey)",
