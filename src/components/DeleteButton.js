@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 
 const DeleteButton = (props) => {
-  const { handleDeleteTemplate } = props;
+  const { deleteAction, type } = props;
   const [isConfirming, setIsConfirming] = useState(false);
 
   return (
@@ -16,7 +16,7 @@ const DeleteButton = (props) => {
           }}
           onClick={() => setIsConfirming(true)}
         >
-          Delete Template
+          Delete {type.slice(0,1).toUpperCase() + type.slice(1)}
         </p>
       ) : (
         <div style={{ marginTop: "50px" }}>
@@ -26,7 +26,7 @@ const DeleteButton = (props) => {
               color: "var(--dogwood-rose)",
             }}
           >
-            Delete this template?
+            Delete this {type}?
           </p>
           <div style={{ display: "flex", cursor: "pointer" }}>
             <p
@@ -50,7 +50,7 @@ const DeleteButton = (props) => {
                 color: "white",
                 backgroundColor: "var(--dogwood-rose)",
               }}
-              onClick={() => handleDeleteTemplate()}
+              onClick={() => deleteAction()}
             >
               Yes, delete it.
             </p>
