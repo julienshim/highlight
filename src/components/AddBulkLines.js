@@ -22,6 +22,7 @@ const AddBulkLines = (props) => {
     <Fragment>
       <div style={{minWidth: "400px"}}>
         <span
+          className="add-lines-buttons"
           style={{
             display: "inline-block",
             padding: "12px 24px",
@@ -36,6 +37,7 @@ const AddBulkLines = (props) => {
           Add Line
         </span>
         <span
+          className="add-lines-buttons"
           style={{
             display: "inline-block",
             padding: "12px 24px",
@@ -70,7 +72,7 @@ const AddBulkLines = (props) => {
             minWidth: "600px",
           }}
         >
-          <h3>Add Bulk Lines</h3>
+          <h3 style={{color: "var(--english-violet)"}}>Add Bulk Lines</h3>
           <p>
             Quickly add lots of text lines by pasting in text. Each text line
             should be on it's own line. Blank lines will be ignored.
@@ -89,9 +91,10 @@ const AddBulkLines = (props) => {
             display: "flex",
           }}>
             <form onSubmit={processBulkLines}>
-              <input className="submitButton" style={{cursor: "pointer"}} type="submit" value="Add Lines" />
+              <input className="submit-button" style={{cursor: "pointer"}} type="submit" value="Add Lines" />
             </form>
             <div
+              className="cancel-button"
               style={{
                 display: "inline-block",
                 boxSizing: "border-box",
