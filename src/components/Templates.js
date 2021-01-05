@@ -105,6 +105,7 @@ const Templates = () => {
                       alignItems: "center",
                       height: "100%",
                       justifyContent: "center",
+                      cursor: "pointer"
                     }}
                   >
                     <div
