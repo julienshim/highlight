@@ -39,7 +39,7 @@ input.active {
 
 div.active {
   border-bottom: 1px dotted black;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .hidden {
@@ -89,6 +89,10 @@ div.active {
   fill: var(--dogwood-rose);
   padding: 12px 12px;
 }
+
+.deleteButton {
+  cursor: pointer;
+}
 /* .inline-container {
   background-color: grey;
 } */
@@ -102,12 +106,18 @@ div.active {
   visibility: visible;
 }
 
-.submitButton {
+.submit-button {
   background-color: white;
   border: 3px solid var(--english-violet);
   padding: 12px 24px;
   font-weight: bold;
   margin: 48px 0;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: var(--english-violet);
+  color: white;
 }
 
 div.edit-div {
@@ -142,8 +152,25 @@ div.card-div:hover > div.edit-div {
   border: "3px solid yellow";
 } */
 
-.sub-h1 {
-  -webkit-text-fill-color: white;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: black;
+.add-lines-buttons:hover {
+  background-color: var(--cadet-grey);
+  color: white;
+}
+
+.add-section-button:hover {
+  background-color: var(--blue-munsell);
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: var(--dogwood-rose);
+  color: white;
+}
+
+.trash-icon:hover {
+  fill: var(--dogwood-rose);
+}
+
+.edit-icon:hover {
+  fill: #ccc
 }
