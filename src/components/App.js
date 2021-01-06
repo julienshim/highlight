@@ -106,19 +106,19 @@ export default function App() {
     <HashRouter
       basename="/highlight"
     >
-      <div style={{ display: "flex", minHeight: "100vh" }}>
+      {/* <div style={{ display: "flex", minHeight: "100vh" }}> */}
+      <div>
         <div
           style={{
-            padding: "32px 24px 10px 24px",
-            minWidth: "100px",
+            display: "flex",
+            justifyContent: "space-between",
+            padding: "12px 24px",
             backgroundColor: "#ccc",
             // background: "var(--english-violet)",
           }}
         >
-          <ul style={{ listStyleType: "none", padding: 0 }}>
-            <li>
-              <h3>Highlight</h3>
-            </li>
+        <h3>Highlight</h3>
+          <ul style={{ display: "flex", paddingTop: "6px", justifyContent: "space-between", width: "250px", listStyleType: "none" }}>
             <li>
               <Link to="/">Dashboard</Link>
             </li>
@@ -131,7 +131,7 @@ export default function App() {
           </ul>
         </div>
 
-        <div style={{ padding: "24px 48px", width: "100%" }}>
+        <div style={{ padding: "24px 48px" }}>
           <NotesContext.Provider value={{ notes, dispatchNotes }}>
             <TemplatesContext.Provider value={{ templates, dispatchTemplates }}>
               <Switch>
