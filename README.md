@@ -2,7 +2,9 @@
 
 Highlight allow susers to create notes faster by avoiding repetitive typing of same information.
 
-## Demo
+## Demo (GitHub Pages)
+
+https://julienshim.github.io/highlight/
 
 ## Screenshots
 
