@@ -7,20 +7,20 @@ const Home = () => {
         <h1>Highlight</h1>
       </div>
       <p>
-        Highlight allows users to create notes faster by avoiding repetivitive
+        Highlight allows users to create notes faster by avoiding repetitive
         typing of same information.
       </p>
       <h2>Getting Started</h2>
       <h3>Templates</h3>
-      <p>Click on 'Templates' in the left sidebar to view 'Saved Templates' or 'Create a New Template'. Templates are structured as follows:</p>
+      <p>By clicking on 'Templates' on the top navigation bar, users can view 'Saved Templates' or 'Create a New Template'. Templates are structured as follows:</p>
       <ul>
         <li>Template Title</li>
         <li>Section Subtitle</li>
         <li>Line Text</li>
       </ul>
-      <p>Users can add multiple sections, and multiple lines of text in each section.</p>
+      <p>Users can multiple sections, as well as add multiple lines of text in each section.</p>
       <h3>Notes</h3>
-      <p>Click on 'Notes' in the left sidebar to view 'Saved Notes' or 'Create a New Note'. Notes are structured as follows:</p>
+      <p>By clicking on 'Notes' on the top navigation bar, users can view 'Saved Notes' or 'Create a New Note'. Notes are structured as follows:</p>
       <ul>
         <li>Note Identifier</li>
         <li>Template Selection</li>
