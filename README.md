@@ -32,8 +32,10 @@ By clicking on 'Notes' on the top navigation bar, users can view 'Saved Notes' o
 
 Users can then click line subtitles or lines of text and comment in the yellow input boxes. A summary of clicked on and commented text will automatically generate at the bottom of the note. Summaries are structued as follows depending if an item is commented on:
 
+```
 <Header>
 <Subtitle>: <Subtitle Comment> <Line Text> - <Line Text Comment>
 <Footer>
+```
 
 Comments are unpunctuated for flexibility on user's preferences with separaters.
