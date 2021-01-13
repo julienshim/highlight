@@ -1,6 +1,6 @@
 # Highlight
 
-Highlight allow susers to create notes faster by avoiding repetitive typing of same information.
+Highlight allows users to create notes faster by avoiding repetitive typing of same information.
 
 ## Demo (GitHub Pages)
 
