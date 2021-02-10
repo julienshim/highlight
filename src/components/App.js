@@ -10,14 +10,17 @@ import EditTemplate from "./EditTemplate";
 import Notes from "./Notes";
 import AddNote from "./AddNote";
 import EditNote from "./EditNote";
+import Checklists from "./Checklists";
 
 // reducers
 import templatesReducer from "../reducers/templatesReducer";
 import notesReducer from "../reducers/notesReducer";
+import checklistsReducer from "../reducers/checklistsReducer";
 
 // context
 import TemplatesContext from "../context/templates-context";
 import NotesContext from "../context/notes-context";
+import ChecklistsContext from "../context/checklists-context";
 
 const routes = [
   {
@@ -56,6 +59,21 @@ const routes = [
     component: () => <EditNote />,
   },
   {
+    path: "/checklists",
+    exact: true,
+    component: () => <Checklists />,
+  },
+  // {
+  //   path: "/checklists/add",
+  //   exact: true,
+  //   component: () => <AddChecklist />,
+  // },
+  // {
+  //   path: "/checklists/update/:id",
+  //   exact: true,
+  //   component: () => <AddChecklist />,
+  // },
+  {
     path: "*",
     component: () => <div>404</div>,
   },
@@ -64,6 +82,7 @@ const routes = [
 export default function App() {
   const [templates, dispatchTemplates] = useReducer(templatesReducer, []);
   const [notes, dispatchNotes] = useReducer(notesReducer, []);
+  const [checklists, dispatchChecklists] = useReducer(checklistsReducer, []);
 
   const getTemplates = () => {
     let templatesData = [];
@@ -89,9 +108,22 @@ export default function App() {
     dispatchNotes({ type: "POPULATE_NOTES", notes: notesData });
   };
 
+  const getChecklists = () => {
+    let checklistsData = [];
+
+    if (localStorage.getItem("checklists") === null) {
+      checklistsData = sampleNote;
+      localStorage.setItem("checklists", JSON.stringify(sampleNote));
+    } else {
+      checklistsData = JSON.parse(localStorage.getItem("checklists"));
+    }
+    dispatchChecklists({ type: "POPULATE_CHECKLISTS", checklists: checklistsData });
+  };
+
   useEffect(() => {
     getTemplates();
     getNotes();
+    getChecklists();
   }, []);
 
   useEffect(() => {
@@ -101,6 +133,10 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
   },[notes])
+
+  useEffect(() => {
+    localStorage.setItem("checklists", JSON.stringify(checklists));
+  },[checklists])
 
   return (
     <HashRouter
@@ -123,6 +159,9 @@ export default function App() {
               <Link to="/">Dashboard</Link>
             </li>
             <li>
+              <Link to='/checklists'>Checklists</Link>
+            </li>
+            <li>
               <Link to="/templates">Templates</Link>
             </li>
             <li>
@@ -134,6 +173,7 @@ export default function App() {
         <div style={{ padding: "24px 48px" }}>
           <NotesContext.Provider value={{ notes, dispatchNotes }}>
             <TemplatesContext.Provider value={{ templates, dispatchTemplates }}>
+              <ChecklistsContext.Provider value={{checklists, dispatchChecklists}}>
               <Switch>
                 {routes.map((route, index) => (
                   <Route
@@ -144,6 +184,7 @@ export default function App() {
                   />
                 ))}
               </Switch>
+              </ChecklistsContext.Provider>
             </TemplatesContext.Provider>
           </NotesContext.Provider>
         </div>
