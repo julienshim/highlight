@@ -116,4 +116,12 @@ const sampleNote = [
   },
 ];
 
-export { sampleTemplate, sampleNote };
+const sampleChecklist = [
+  {
+    title: 'Checklist A',
+    subTitle: '123A',
+    body: '* 1\n* 2'
+  }
+]
+
+export { sampleTemplate, sampleNote, sampleChecklist };
