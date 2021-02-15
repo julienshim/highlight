@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer } from "react";
 import { BrowserRouter as HashRouter, Switch, Route, Link } from "react-router-dom";
-import { sampleNote, sampleTemplate } from "../sampleData";
+import { sampleNote, sampleTemplate, sampleChecklist } from "../sampleData";
 
 // components
 import Dashboard from "./Dashboard";
@@ -11,6 +11,8 @@ import Notes from "./Notes";
 import AddNote from "./AddNote";
 import EditNote from "./EditNote";
 import Checklists from "./Checklists";
+import AddChecklist from "./AddChecklist";
+import EditChecklist from './EditChecklist';
 
 // reducers
 import templatesReducer from "../reducers/templatesReducer";
@@ -63,16 +65,16 @@ const routes = [
     exact: true,
     component: () => <Checklists />,
   },
-  // {
-  //   path: "/checklists/add",
-  //   exact: true,
-  //   component: () => <AddChecklist />,
-  // },
-  // {
-  //   path: "/checklists/update/:id",
-  //   exact: true,
-  //   component: () => <AddChecklist />,
-  // },
+  {
+    path: "/checklists/add",
+    exact: true,
+    component: () => <AddChecklist />,
+  },
+  {
+    path: "/checklists/update/:id",
+    exact: true,
+    component: () => <EditChecklist />,
+  },
   {
     path: "*",
     component: () => <div>404</div>,
@@ -112,8 +114,8 @@ export default function App() {
     let checklistsData = [];
 
     if (localStorage.getItem("checklists") === null) {
-      checklistsData = sampleNote;
-      localStorage.setItem("checklists", JSON.stringify(sampleNote));
+      checklistsData = sampleChecklist;
+      localStorage.setItem("checklists", JSON.stringify(sampleChecklist));
     } else {
       checklistsData = JSON.parse(localStorage.getItem("checklists"));
     }
@@ -154,7 +156,7 @@ export default function App() {
           }}
         >
         <h3>Highlight</h3>
-          <ul style={{ display: "flex", paddingTop: "6px", justifyContent: "space-between", width: "250px", listStyleType: "none" }}>
+          <ul style={{ display: "flex", paddingTop: "6px", justifyContent: "space-between", width: "325px", listStyleType: "none" }}>
             <li>
               <Link to="/">Dashboard</Link>
             </li>

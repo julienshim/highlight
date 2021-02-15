@@ -40,7 +40,7 @@ const Checklists = () => {
       )}
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {checklists.map((checklist, checklistIndex) => {
-          const { title, scenarios } = checklist;
+          const { title, checklists } = checklist;
           return (
             <div
               className="card-container"
@@ -69,19 +69,19 @@ const Checklists = () => {
                     {title.length <= 25 ? title : `${title.slice(0, 20)}...`}
                   </h3>
                   <div>
-                    {scenarios
-                      .filter((scenario, scenarioIndex) => scenarioIndex < 4)
-                      .map((scenario, scenarioIndex) => (
+                    {checklists
+                      .filter((checklist, checklistIndex) => checklistIndex < 4)
+                      .map((checklist, checklistIndex) => (
                         <p
-                          key={`scenario-${scenarioIndex}`}
+                          key={`checklist-${checklistIndex}`}
                           style={{ padding: "6px 12px", margin: "6px 0" }}
                         >
-                          {scenario.subtitle}
+                          {checklist.subtitle}
                         </p>
                       ))}
-                    {scenarios.length >= 5 && (
+                    {checklists.length >= 5 && (
                       <p style={{ padding: "6px 12px", margin: "6px 0" }}>
-                        + {scenarios.length - 4} more scenario{scenarios.length - 4 === 1 ? '' : 's'}
+                        + {checklists.length - 4} more checklist{checklists.length - 4 === 1 ? '' : 's'}
                       </p>
                     )}
                     <ChecklistsEditDiv
