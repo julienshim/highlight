@@ -1,82 +1,87 @@
-import React, { useEffect, useReducer } from "react";
-import { BrowserRouter as HashRouter, Switch, Route, Link } from "react-router-dom";
-import { sampleNote, sampleTemplate, sampleChecklist } from "../sampleData";
+import React, { useEffect, useReducer } from 'react';
+import {
+  BrowserRouter as HashRouter,
+  Switch,
+  Route,
+  Link,
+} from 'react-router-dom';
+import { sampleNote, sampleTemplate, sampleChecklist } from '../sampleData';
 
 // components
-import Dashboard from "./Dashboard";
-import Templates from "./Templates";
-import AddTemplate from "./AddTemplate";
-import EditTemplate from "./EditTemplate";
-import Notes from "./Notes";
-import AddNote from "./AddNote";
-import EditNote from "./EditNote";
-import Checklists from "./Checklists";
-import AddChecklist from "./AddChecklist";
+import Dashboard from './Dashboard';
+import Templates from './Templates';
+import AddTemplate from './AddTemplate';
+import EditTemplate from './EditTemplate';
+import Notes from './Notes';
+import AddNote from './AddNote';
+import EditNote from './EditNote';
+import Checklists from './Checklists';
+import AddChecklist from './AddChecklist';
 import EditChecklist from './EditChecklist';
 
 // reducers
-import templatesReducer from "../reducers/templatesReducer";
-import notesReducer from "../reducers/notesReducer";
-import checklistsReducer from "../reducers/checklistsReducer";
+import templatesReducer from '../reducers/templatesReducer';
+import notesReducer from '../reducers/notesReducer';
+import checklistsReducer from '../reducers/checklistsReducer';
 
 // context
-import TemplatesContext from "../context/templates-context";
-import NotesContext from "../context/notes-context";
-import ChecklistsContext from "../context/checklists-context";
+import TemplatesContext from '../context/templates-context';
+import NotesContext from '../context/notes-context';
+import ChecklistsContext from '../context/checklists-context';
 
 const routes = [
   {
-    path: "/",
+    path: '/',
     exact: true,
     component: () => <Dashboard />,
   },
   {
-    path: "/templates",
+    path: '/templates',
     exact: true,
     component: () => <Templates />,
   },
   {
-    path: "/templates/add",
+    path: '/templates/add',
     exact: true,
     component: () => <AddTemplate />,
   },
   {
-    path: "/templates/update/:id",
+    path: '/templates/update/:id',
     exact: true,
     component: () => <EditTemplate />,
   },
   {
-    path: "/notes",
+    path: '/notes',
     exact: true,
     component: () => <Notes />,
   },
   {
-    path: "/notes/add",
+    path: '/notes/add',
     exact: true,
     component: () => <AddNote />,
   },
   {
-    path: "/notes/update/:id",
+    path: '/notes/update/:id',
     exact: true,
     component: () => <EditNote />,
   },
   {
-    path: "/checklists",
+    path: '/checklists',
     exact: true,
     component: () => <Checklists />,
   },
   {
-    path: "/checklists/add",
+    path: '/checklists/add',
     exact: true,
     component: () => <AddChecklist />,
   },
   {
-    path: "/checklists/update/:id",
+    path: '/checklists/update/:id',
     exact: true,
     component: () => <EditChecklist />,
   },
   {
-    path: "*",
+    path: '*',
     component: () => <div>404</div>,
   },
 ];
@@ -89,37 +94,40 @@ export default function App() {
   const getTemplates = () => {
     let templatesData = [];
 
-    if (localStorage.getItem("templates") === null) {
+    if (localStorage.getItem('templates') === null) {
       templatesData = sampleTemplate;
-      localStorage.setItem("templates", JSON.stringify(sampleTemplate));
+      localStorage.setItem('templates', JSON.stringify(sampleTemplate));
     } else {
-      templatesData = JSON.parse(localStorage.getItem("templates"));
+      templatesData = JSON.parse(localStorage.getItem('templates'));
     }
-    dispatchTemplates({ type: "POPULATE_TEMPLATES", templates: templatesData });
+    dispatchTemplates({ type: 'POPULATE_TEMPLATES', templates: templatesData });
   };
 
   const getNotes = () => {
     let notesData = [];
 
-    if (localStorage.getItem("notes") === null) {
+    if (localStorage.getItem('notes') === null) {
       notesData = sampleNote;
-      localStorage.setItem("notes", JSON.stringify(sampleNote));
+      localStorage.setItem('notes', JSON.stringify(sampleNote));
     } else {
-      notesData = JSON.parse(localStorage.getItem("notes"));
+      notesData = JSON.parse(localStorage.getItem('notes'));
     }
-    dispatchNotes({ type: "POPULATE_NOTES", notes: notesData });
+    dispatchNotes({ type: 'POPULATE_NOTES', notes: notesData });
   };
 
   const getChecklists = () => {
     let checklistsData = [];
 
-    if (localStorage.getItem("checklists") === null) {
+    if (localStorage.getItem('checklists') === null) {
       checklistsData = sampleChecklist;
-      localStorage.setItem("checklists", JSON.stringify(sampleChecklist));
+      localStorage.setItem('checklists', JSON.stringify(sampleChecklist));
     } else {
-      checklistsData = JSON.parse(localStorage.getItem("checklists"));
+      checklistsData = JSON.parse(localStorage.getItem('checklists'));
     }
-    dispatchChecklists({ type: "POPULATE_CHECKLISTS", checklists: checklistsData });
+    dispatchChecklists({
+      type: 'POPULATE_CHECKLISTS',
+      checklists: checklistsData,
+    });
   };
 
   useEffect(() => {
@@ -129,39 +137,45 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("templates", JSON.stringify(templates));
-  },[templates])
+    localStorage.setItem('templates', JSON.stringify(templates));
+  }, [templates]);
 
   useEffect(() => {
-    localStorage.setItem("notes", JSON.stringify(notes));
-  },[notes])
+    localStorage.setItem('notes', JSON.stringify(notes));
+  }, [notes]);
 
   useEffect(() => {
-    localStorage.setItem("checklists", JSON.stringify(checklists));
-  },[checklists])
+    localStorage.setItem('checklists', JSON.stringify(checklists));
+  }, [checklists]);
 
   return (
-    <HashRouter
-      basename="/highlight"
-    >
+    <HashRouter basename="/highlight">
       {/* <div style={{ display: "flex", minHeight: "100vh" }}> */}
       <div>
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            padding: "12px 24px",
-            backgroundColor: "#ccc",
+            display: 'flex',
+            justifyContent: 'space-between',
+            padding: '12px 24px',
+            backgroundColor: '#ccc',
             // background: "var(--english-violet)",
           }}
         >
-        <h3>Highlight</h3>
-          <ul style={{ display: "flex", paddingTop: "6px", justifyContent: "space-between", width: "325px", listStyleType: "none" }}>
+          <h3>Highlight</h3>
+          <ul
+            style={{
+              display: 'flex',
+              paddingTop: '6px',
+              justifyContent: 'space-between',
+              width: '325px',
+              listStyleType: 'none',
+            }}
+          >
             <li>
               <Link to="/">Dashboard</Link>
             </li>
             <li>
-              <Link to='/checklists'>Checklists</Link>
+              <Link to="/checklists">Checklists</Link>
             </li>
             <li>
               <Link to="/templates">Templates</Link>
@@ -172,20 +186,22 @@ export default function App() {
           </ul>
         </div>
 
-        <div style={{ padding: "24px 48px" }}>
+        <div style={{ padding: '24px 48px' }}>
           <NotesContext.Provider value={{ notes, dispatchNotes }}>
             <TemplatesContext.Provider value={{ templates, dispatchTemplates }}>
-              <ChecklistsContext.Provider value={{checklists, dispatchChecklists}}>
-              <Switch>
-                {routes.map((route, index) => (
-                  <Route
-                    key={index}
-                    path={route.path}
-                    exact={route.exact}
-                    component={route.component}
-                  />
-                ))}
-              </Switch>
+              <ChecklistsContext.Provider
+                value={{ checklists, dispatchChecklists }}
+              >
+                <Switch>
+                  {routes.map((route, index) => (
+                    <Route
+                      key={`route-${index * Date.now()}`}
+                      path={route.path}
+                      exact={route.exact}
+                      component={route.component}
+                    />
+                  ))}
+                </Switch>
               </ChecklistsContext.Provider>
             </TemplatesContext.Provider>
           </NotesContext.Provider>
