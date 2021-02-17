@@ -1,46 +1,43 @@
-import React, { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
-import TemplatesContext from "../context/templates-context";
-import InlineEditTitle from "./InlineEditTitle";
-import InlineEditSubtitle from "./InlineEditSubtitle";
-import InlineEditContent from "./InlineEditContent";
-import AddBulkLines from "./AddBulkLines";
-import AddSectionButton from "./AddSectionButton";
-
+import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import TemplatesContext from '../context/templates-context';
+import InlineEditTitle from './InlineEditTitle';
+import InlineEditSubtitle from './InlineEditSubtitle';
+import InlineEditContent from './InlineEditContent';
+import AddBulkLines from './AddBulkLines';
+import AddSectionButton from './AddSectionButton';
 
 const AddTemplate = () => {
   // eslint-disable-next-line no-unused-vars
   const { templates, dispatchTemplates } = useContext(TemplatesContext);
   const history = useHistory();
 
-  const [title, setTitle] = useState("Untitled");
+  const [title, setTitle] = useState('Untitled');
   const [scenarios, setScenarios] = useState([
     {
-      subtitle: "Unsubtitled",
-      subtitleComments: "",
-      entries: [
-        { content: "Untexted", contentComments: "" },
-      ],
+      subtitle: 'Unsubtitled',
+      subtitleComments: '',
+      entries: [{ content: 'Untexted', contentComments: '' }],
     },
   ]);
 
   const handleAddTemplate = (event) => {
     event.preventDefault();
     dispatchTemplates({
-      type: "ADD_TEMPLATE",
-      title: title === "" ? "Untitled" : title,
+      type: 'ADD_TEMPLATE',
+      title: title === '' ? 'Untitled' : title,
       scenarios:
         scenarios.length === 0
           ? [
               {
-                subtitle: "Unsubtitled",
-                subtitleComments: "",
-                entries: [{ content: "Untexted", contentComments: "" }],
+                subtitle: 'Unsubtitled',
+                subtitleComments: '',
+                entries: [{ content: 'Untexted', contentComments: '' }],
               },
             ]
           : scenarios,
     });
-    history.push("/templates");
+    history.push('/templates');
   };
 
   const handleContentChange = (newText, scenarioIndex, entryIndex) => {
@@ -57,12 +54,13 @@ const AddTemplate = () => {
 
   const handleAddNewContent = (scenarioIndex, contentArr) => {
     const newScenarios = [...scenarios];
-    const processedContent = contentArr === null 
-      ? [{ content: "Untexted", contentComments: "" }]
-      : contentArr.map(content => {
-        const tmp = { content, contentComments: "" };
-        return tmp;
-      });
+    const processedContent =
+      contentArr === null
+        ? [{ content: 'Untexted', contentComments: '' }]
+        : contentArr.map((content) => {
+            const tmp = { content, contentComments: '' };
+            return tmp;
+          });
 
     newScenarios[scenarioIndex].entries = [
       ...newScenarios[scenarioIndex].entries,
@@ -90,26 +88,24 @@ const AddTemplate = () => {
     setScenarios([
       ...scenarios,
       {
-        subtitle: "Unsubtitled",
-        subtitleComments: "",
-        entries: [
-          { content: "Untexted", contentComments: "" },
-        ]
+        subtitle: 'Unsubtitled',
+        subtitleComments: '',
+        entries: [{ content: 'Untexted', contentComments: '' }],
       },
     ]);
   };
 
   return (
     <div>
-      <h1 style={{ color: "var(--english-violet" }}>Create a New Template</h1>
+      <h1 style={{ color: 'var(--english-violet' }}>Create a New Template</h1>
       <InlineEditTitle text={title} setText={setTitle} />
       {scenarios.map((scenario, scenarioIndex) => {
         const { subtitle, entries } = scenario;
         return (
           <div
-            key={`scenario-${scenarioIndex}`}
+            key={`scenario-${scenarioIndex * Date.now()}`}
             style={{
-              marginLeft: "24px",
+              marginLeft: '24px',
             }}
           >
             <InlineEditSubtitle
@@ -123,9 +119,9 @@ const AddTemplate = () => {
                 const { content } = entry;
                 return (
                   <div
-                    key={`entry${entryIndex}`}
+                    key={`entry${entryIndex * Date.now()}`}
                     style={{
-                      marginLeft: "48px",
+                      marginLeft: '48px',
                     }}
                   >
                     <InlineEditContent
@@ -138,7 +134,10 @@ const AddTemplate = () => {
                   </div>
                 );
               })}
-              <AddBulkLines scenarioIndex={scenarioIndex} handleAddNewContent={handleAddNewContent}/>
+              <AddBulkLines
+                scenarioIndex={scenarioIndex}
+                handleAddNewContent={handleAddNewContent}
+              />
             </div>
           </div>
         );
@@ -147,7 +146,12 @@ const AddTemplate = () => {
         <AddSectionButton handleAddNewScenario={handleAddNewScenario} />
       </div>
       <form onSubmit={handleAddTemplate}>
-        <input className="submit-button" type="submit" style={{cursor: "pointer"}} value="Save" />
+        <input
+          className="submit-button"
+          type="submit"
+          style={{ cursor: 'pointer' }}
+          value="Save"
+        />
       </form>
     </div>
   );
