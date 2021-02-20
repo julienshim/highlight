@@ -56,7 +56,7 @@ const AddNote = () => {
             return (
               <option
                 data-ref={templateIndex}
-                key={`template${templateIndex*Date.now()}`}
+                key={`template${templateIndex * Date.now()}`}
                 value={title}
               >
                 {title}
