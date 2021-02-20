@@ -1,6 +1,6 @@
-import React, { useRef, useCallback, useState, useEffect } from "react";
-import useOnClickOutside from "../hooks/useOnClickOutside";
-import useKeypress from "../hooks/useKeypress";
+import React, { useRef, useCallback, useState, useEffect } from 'react';
+import useOnClickOutside from '../hooks/useOnClickOutside';
+import useKeypress from '../hooks/useKeypress';
 
 const CommentSubtitle = (props) => {
   const { text, setText, scenarioIndex, entryIndex, content } = props;
@@ -13,11 +13,11 @@ const CommentSubtitle = (props) => {
   const textRef = useRef(null);
   const inputRef = useRef(null);
 
-  const enter = useKeypress("Enter");
-  const esc = useKeypress("Escape");
-  const tab = useKeypress("Tab");
+  const enter = useKeypress('Enter');
+  const esc = useKeypress('Escape');
+  const tab = useKeypress('Tab');
 
-  const placeholder = "Enter comments here...";
+  const placeholder = 'Enter comments here...';
 
   const commentButton = (
     <svg
@@ -85,32 +85,48 @@ const CommentSubtitle = (props) => {
   return (
     <div
       className="inline-container inline-content"
-      style={{ display: "flex", margin: 0 }}
+      style={{ display: 'flex', margin: 0 }}
       ref={wrapperRef}
     >
       <div
         className="commentButton"
-        style={{ cursor: "pointer" }}
+        style={{ cursor: 'pointer' }}
         onClick={() => {
           if (!inputValue) {
             setHasText(!hasText);
             setIsInputActive(true);
           }
         }}
+        onKeyUp={() => {
+          if (!inputValue) {
+            setHasText(!hasText);
+            setIsInputActive(true);
+          }
+        }}
+        role="button"
+        tabIndex={0}
       >
         {commentButton}
       </div>
-      <div style={{ padding: "12px" }}>
+      <div style={{ padding: '12px' }}>
         <div
-          className={`inline-div`}
+          className="inline-div"
           ref={textRef}
-          style={{ cursor: "pointer" }}
+          style={{ cursor: 'pointer' }}
           onClick={() => {
             if (!inputValue) {
               setHasText(!hasText);
               setIsInputActive(true);
             }
           }}
+          onKeyUp={() => {
+            if (!inputValue) {
+              setHasText(!hasText);
+              setIsInputActive(true);
+            }
+          }}
+          role="button"
+          tabIndex={0}
         >
           {content}
         </div>
@@ -118,15 +134,14 @@ const CommentSubtitle = (props) => {
           <input
             style={{
               width:
-                (inputValue.length > placeholder.length
+                `${(inputValue.length > placeholder.length
                   ? inputValue.length + 7
                   : placeholder.length + 7) *
                   0.1 *
-                  7.7 +
-                "ch",
+                  7.7}ch`,
             }}
             ref={inputRef}
-            className={`inline-input highlighter`}
+            className="inline-input highlighter"
             value={inputValue}
             placeholder={placeholder}
             onChange={(e) => {
