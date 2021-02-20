@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import NotesContext from "../context/notes-context";
-import TemplatesContext from "../context/notes-context";
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import NotesContext from '../context/notes-context';
+import TemplatesContext from '../context/templates-context';
 import NotesEditDiv from './NotesEditDiv';
 
 const Notes = () => {
@@ -29,64 +29,67 @@ const Notes = () => {
       {templates !== 0 ? (
         <div>
           <Link to="/notes/add">
-            <p style={{fontSize: "1.5rem"}}>
+            <p style={{ fontSize: '1.5rem' }}>
               <span>{addIcon}</span>Create a New Note
             </p>
           </Link>
         </div>
       ) : (
         <div>
-          <p style={{color: "var(--dogwood-rose)", fontWeight: "bold"}}>
+          <p style={{ color: 'var(--dogwood-rose)', fontWeight: 'bold' }}>
             Before you can create a new note. You must create a template first.
           </p>
         </div>
       )}
       <h3>Saved Notes</h3>
-      {(notes.length === 0) && (
+      {notes.length === 0 && (
         <div>
-          <p style={{color: "var(--dogwood-rose)", fontWeight: "bold"}}>
+          <p style={{ color: 'var(--dogwood-rose)', fontWeight: 'bold' }}>
             No saved notes found.
           </p>
         </div>
       )}
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {notes.map((note, noteIndex) => {
           const { refId, body } = note;
           const { title } = body;
           return (
             <div
               className="card-container"
-              key={`note-${noteIndex}`}
+              key={`note-${noteIndex * Date.now()}`}
               style={{
-                width: "250px",
-                height: "250px",
-                border: "1px solid var(--blue-munsell)",
-                margin: "6px",
+                width: '250px',
+                height: '250px',
+                border: '1px solid var(--blue-munsell)',
+                margin: '6px',
               }}
             >
               <div
                 className="card-div"
-                style={{ position: "relative", height: "100%" }}
+                style={{ position: 'relative', height: '100%' }}
               >
                 <div style={{}}>
                   <h3
                     style={{
-                      padding: "12px 12px",
-                      margin: "0",
-                      backgroundColor: "var(--blue-munsell)",
-                      color: "white",
-                      height: "25px",
+                      padding: '12px 12px',
+                      margin: '0',
+                      backgroundColor: 'var(--blue-munsell)',
+                      color: 'white',
+                      height: '25px',
                     }}
                   >
                     {refId}
                   </h3>
                   <div>
-                    <p style={{ padding: "6px 12px", margin: "6px 0" }}>
+                    <p style={{ padding: '6px 12px', margin: '6px 0' }}>
                       {title}
                     </p>
                   </div>
                 </div>
-                <NotesEditDiv noteIndex={noteIndex} dispatchNotes={dispatchNotes}/>
+                <NotesEditDiv
+                  noteIndex={noteIndex}
+                  dispatchNotes={dispatchNotes}
+                />
               </div>
             </div>
           );
