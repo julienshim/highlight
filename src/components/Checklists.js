@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import ChecklistsContext from "../context/checklists-context";
-import ChecklistsEditDiv from "./ChecklistsEditDiv";
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import ChecklistsContext from '../context/checklists-context';
+// import ChecklistsEditDiv from './ChecklistsEditDiv';
 
 const Checklists = () => {
   // eslint-disable-next-line no-unused-vars
@@ -25,7 +25,7 @@ const Checklists = () => {
       <h3>Add Checklist</h3>
       <div>
         <Link to="/checklists/add">
-          <p style={{fontSize: "1.5rem"}}>
+          <p style={{ fontSize: '1.5rem' }}>
             <span>{addIcon}</span>Create a New Checklist
           </p>
         </Link>
@@ -33,68 +33,12 @@ const Checklists = () => {
       <h3>Saved Checklists</h3>
       {checklists.length === 0 && (
         <div>
-          <p style={{ color: "var(--dogwood-rose)", fontWeight: "bold" }}>
+          <p style={{ color: 'var(--dogwood-rose)', fontWeight: 'bold' }}>
             No saved checklists found.
           </p>
         </div>
       )}
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {checklists.map((checklist, checklistIndex) => {
-          const { title, checklists } = checklist;
-          return (
-            <div
-              className="card-container"
-              key={`checklist-${checklistIndex}`}
-              style={{
-                width: "250px",
-                height: "250px",
-                border: "1px solid var(--english-violet)",
-                margin: "6px",
-              }}
-            >
-              <div
-                className="card-div"
-                style={{ position: "relative", height: "100%" }}
-              >
-                <div>
-                  <h3
-                    style={{
-                      padding: "12px 12px",
-                      margin: "0",
-                      backgroundColor: "var(--english-violet)",
-                      color: "white",
-                      height: "25px",
-                    }}
-                  >
-                    {title.length <= 25 ? title : `${title.slice(0, 20)}...`}
-                  </h3>
-                  <div>
-                    {checklists
-                      .filter((checklist, checklistIndex) => checklistIndex < 4)
-                      .map((checklist, checklistIndex) => (
-                        <p
-                          key={`checklist-${checklistIndex}`}
-                          style={{ padding: "6px 12px", margin: "6px 0" }}
-                        >
-                          {checklist.subtitle}
-                        </p>
-                      ))}
-                    {checklists.length >= 5 && (
-                      <p style={{ padding: "6px 12px", margin: "6px 0" }}>
-                        + {checklists.length - 4} more checklist{checklists.length - 4 === 1 ? '' : 's'}
-                      </p>
-                    )}
-                    <ChecklistsEditDiv
-                      checklistIndex={checklistIndex}
-                      dispatchChecklists={dispatchChecklists}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      <div style={{ display: 'flex', flexWrap: 'wrap' }} />
     </div>
   );
 };
