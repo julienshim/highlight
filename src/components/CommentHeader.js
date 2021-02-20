@@ -74,7 +74,7 @@ const CommentSubtitle = (props) => {
         <input
           style={{ width: '100%', boxSizing: 'border-box' }}
           ref={inputRef}
-          className={`highlighter`}
+          className="highlighter"
           value={inputValue}
           placeholder={placeholder}
           onChange={(e) => {

@@ -133,16 +133,16 @@ const CommentSubtitle = (props) => {
         {hasText && (
           <input
             style={{
-              width:
+              width: `${
                 (inputValue.length > placeholder.length
                   ? inputValue.length + 7
                   : placeholder.length + 7) *
-                  0.1 *
-                  7.7 +
-                'ch',
+                0.1 *
+                7.7
+              }ch`,
             }}
             ref={inputRef}
-            className={`inline-input highlighter`}
+            className="inline-input highlighter"
             value={inputValue}
             placeholder={placeholder}
             onChange={(e) => {

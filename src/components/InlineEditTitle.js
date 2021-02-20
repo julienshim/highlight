@@ -95,12 +95,13 @@ const InlineEditTitle = (props) => {
       </div>
       <input
         style={{
-          width:
-            `${(inputValue.length > placeholder.length
+          width: `${
+            (inputValue.length > placeholder.length
               ? inputValue.length + 7
               : placeholder.length + 7) *
-              0.1 *
-              7.7}ch`,
+            0.1 *
+            7.7
+          }ch`,
         }}
         type="text"
         ref={inputRef}

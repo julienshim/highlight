@@ -50,8 +50,8 @@ const Home = () => {
         <li>{'<Footer>'}</li>
       </ul>
       <p>
-        Comments are unpunctuated for flexibility on user&apos;s preferences with
-        separaters.
+        Comments are unpunctuated for flexibility on user&apos;s preferences
+        with separaters.
       </p>
       <h2>Updates</h2>
     </Fragment>
