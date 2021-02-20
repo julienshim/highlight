@@ -1,5 +1,5 @@
-import React, { useState, Fragment } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState, Fragment } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const ChecklistsEditDiv = (props) => {
   const [isConfirming, setIsConfirming] = useState(false);
@@ -9,12 +9,12 @@ const ChecklistsEditDiv = (props) => {
 
   const handleDeleteChecklist = (elementIndex) => {
     dispatchChecklists({
-      type: "REMOVE_CHECKLIST",
-      checklist_id: elementIndex
+      type: 'REMOVE_CHECKLIST',
+      checklist_id: elementIndex,
     });
-    history.push("/checklists");
+    history.push('/checklists');
     setIsConfirming(false);
-  }
+  };
 
   const editIcon = (
     <svg
@@ -44,67 +44,94 @@ const ChecklistsEditDiv = (props) => {
     <div
       className="edit-div"
       style={{
-        position: "absolute",
+        position: 'absolute',
         left: 0,
         top: 49,
-        width: "100%",
-        height: "calc(100% - 49px)",
+        width: '100%',
+        height: 'calc(100% - 49px)',
       }}
     >
       <div
         style={{
-          backgroundColor: "#ccc",
-          display: "flex",
-          alignItems: "center",
-          height: "100%",
-          justifyContent: "center",
+          backgroundColor: '#ccc',
+          display: 'flex',
+          alignItems: 'center',
+          height: '100%',
+          justifyContent: 'center',
         }}
       >
         {!isConfirming ? (
           <Fragment>
             <div
               style={{
-                cursor: "pointer",
-                margin: "0 24px",
+                cursor: 'pointer',
+                margin: '0 24px',
               }}
-              onClick={() => history.push(`/templates/update/${checklistIndex}`)}
+              onClick={() =>
+                history.push(`/templates/update/${checklistIndex}`)
+              }
+              onKeyUp={() =>
+                history.push(`/templates/update/${checklistIndex}`)
+              }
+              role="button"
+              tabIndex={0}
             >
               {editIcon}
             </div>
-            <div style={{ cursor: "pointer", margin: "0 24px" }} onClick={() => setIsConfirming(true)}>
+            <div
+              style={{ cursor: 'pointer', margin: '0 24px' }}
+              onClick={() => setIsConfirming(true)}
+              onKeyUp={() => setIsConfirming(true)}
+              role="button"
+              tabIndex={0}
+            >
               {trashIcon}
             </div>
           </Fragment>
         ) : (
           <div>
-          <p style={{textAlign: "center", fontWeight: "bold", color: "var(--dogwood-rose)"}}>Delete this template?</p>
-          <div style={{ display: "flex", cursor: "pointer" }}>
             <p
-              className="confirm-button"
               style={{
-                padding: "12px 24px",
-                fontSize: "0.8rem",
-                margin: "0 3px",
-                backgroundColor: "var(--cadet-grey)",
+                textAlign: 'center',
+                fontWeight: 'bold',
+                color: 'var(--dogwood-rose)',
               }}
-              onClick={() => setIsConfirming(false)}
             >
-              Cancel
+              Delete this template?
             </p>
-            <p
-              className="confirm-button"
-              style={{
-                padding: "12px 24px",
-                fontSize: "0.8rem",
-                margin: "0 3px",
-                color: "white",
-                backgroundColor: "var(--dogwood-rose)",
-              }}
-              onClick={() => handleDeleteChecklist(checklistIndex)}
-            >
-              Yes, delete it.
-            </p>
-          </div>
+            <div style={{ display: 'flex', cursor: 'pointer' }}>
+              <div
+                className="confirm-button"
+                style={{
+                  padding: '12px 24px',
+                  fontSize: '0.8rem',
+                  margin: '0 3px',
+                  backgroundColor: 'var(--cadet-grey)',
+                }}
+                onClick={() => setIsConfirming(false)}
+                onKeyUp={() => setIsConfirming(false)}
+                role="button"
+                tabIndex={0}
+              >
+                Cancel
+              </div>
+              <div
+                className="confirm-button"
+                style={{
+                  padding: '12px 24px',
+                  fontSize: '0.8rem',
+                  margin: '0 3px',
+                  color: 'white',
+                  backgroundColor: 'var(--dogwood-rose)',
+                }}
+                onClick={() => handleDeleteChecklist(checklistIndex)}
+                onKeyUp={() => handleDeleteChecklist(checklistIndex)}
+                role="button"
+                tabIndex={0}
+              >
+                Yes, delete it.
+              </div>
+            </div>
           </div>
         )}
       </div>
