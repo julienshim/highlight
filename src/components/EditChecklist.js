@@ -1,13 +1,13 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
-import TemplatesContext from "../context/templates-context";
-import InlineEditTitle from "./InlineEditTitle";
-import InlineEditSubtitle from "./InlineEditSubtitle";
-import InlineEditContent from "./InlineEditContent";
-import AddBulkLines from "./AddBulkLines";
-import DeleteButton from "./DeleteButton";
-import SaveButton from "./SaveButton";
-import AddSectionButton from "./AddSectionButton";
+import React, { useState, useContext, useEffect } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import TemplatesContext from '../context/templates-context';
+import InlineEditTitle from './InlineEditTitle';
+import InlineEditSubtitle from './InlineEditSubtitle';
+import InlineEditContent from './InlineEditContent';
+import AddBulkLines from './AddBulkLines';
+import DeleteButton from './DeleteButton';
+import SaveButton from './SaveButton';
+import AddSectionButton from './AddSectionButton';
 
 const EditTemplate = () => {
   // eslint-disable-next-line no-unused-vars
@@ -15,12 +15,12 @@ const EditTemplate = () => {
   const history = useHistory();
   const { id } = useParams();
 
-  const [title, setTitle] = useState("Untitled");
+  const [title, setTitle] = useState('Untitled');
   const [scenarios, setScenarios] = useState([
     {
-      subtitle: "Unsubtitled",
-      subtitleComments: "",
-      entries: [{ content: "Untexted", contentComments: "" }],
+      subtitle: 'Unsubtitled',
+      subtitleComments: '',
+      entries: [{ content: 'Untexted', contentComments: '' }],
     },
   ]);
   const [isSaved, setIsSaved] = useState(false);
@@ -39,16 +39,16 @@ const EditTemplate = () => {
   const handleAddTemplate = (event) => {
     event.preventDefault();
     dispatchTemplates({
-      type: "EDIT_TEMPLATE",
-      template_id: parseInt(id),
-      title: title === "" ? "Untitled" : title,
+      type: 'EDIT_TEMPLATE',
+      template_id: parseInt(id, 10),
+      title: title === '' ? 'Untitled' : title,
       scenarios:
         scenarios.length === 0
           ? [
               {
-                subtitle: "Unsubtitled",
-                subtitleComments: "",
-                entries: [{ content: "Untexted", contentComments: "" }],
+                subtitle: 'Unsubtitled',
+                subtitleComments: '',
+                entries: [{ content: 'Untexted', contentComments: '' }],
               },
             ]
           : scenarios,
@@ -73,9 +73,9 @@ const EditTemplate = () => {
     const newScenarios = [...scenarios];
     const processedContent =
       contentArr === null
-        ? [{ content: "Untexted", contentComments: "" }]
+        ? [{ content: 'Untexted', contentComments: '' }]
         : contentArr.map((content) => {
-            const tmp = { content, contentComments: "" };
+            const tmp = { content, contentComments: '' };
             return tmp;
           });
     newScenarios[scenarioIndex].entries = [
@@ -104,24 +104,24 @@ const EditTemplate = () => {
     setScenarios([
       ...scenarios,
       {
-        subtitle: "Unsubtitled",
-        subtitleComments: "",
-        entries: [{ content: "Untexted", contentComments: "" }],
+        subtitle: 'Unsubtitled',
+        subtitleComments: '',
+        entries: [{ content: 'Untexted', contentComments: '' }],
       },
     ]);
   };
 
   const handleDeleteTemplate = () => {
     dispatchTemplates({
-      type: "REMOVE_TEMPLATE",
-      template_id: parseInt(id),
+      type: 'REMOVE_TEMPLATE',
+      template_id: parseInt(id, 10),
     });
-    history.push("/templates");
+    history.push('/templates');
   };
 
   return (
     <div>
-      <h1 style={{ color: "var(--english-violet)" }}>
+      <h1 style={{ color: 'var(--english-violet)' }}>
         Edit <span>{title}</span> template
       </h1>
       <InlineEditTitle text={title} setText={setTitle} />
@@ -129,9 +129,9 @@ const EditTemplate = () => {
         const { subtitle, entries } = scenario;
         return (
           <div
-            key={`scenario-${scenarioIndex}`}
+            key={`scenario-${scenarioIndex * Date.now()}`}
             style={{
-              marginLeft: "24px",
+              marginLeft: '24px',
             }}
           >
             <InlineEditSubtitle
@@ -145,9 +145,9 @@ const EditTemplate = () => {
                 const { content } = entry;
                 return (
                   <div
-                    key={`entry${entryIndex}`}
+                    key={`entry${entryIndex * Date.now()}`}
                     style={{
-                      marginLeft: "48px",
+                      marginLeft: '48px',
                     }}
                   >
                     <InlineEditContent
