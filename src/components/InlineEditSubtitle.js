@@ -1,6 +1,6 @@
-import React, { useRef, useState, useCallback, useEffect } from "react";
-import useOnClickOutside from "../hooks/useOnClickOutside";
-import useKeypress from "../hooks/useKeypress";
+import React, { useRef, useState, useCallback, useEffect } from 'react';
+import useOnClickOutside from '../hooks/useOnClickOutside';
+import useKeypress from '../hooks/useKeypress';
 
 const InlineEditSubtitle = (props) => {
   const { text, setText, deleteText, scenarioIndex } = props;
@@ -11,11 +11,11 @@ const InlineEditSubtitle = (props) => {
   const textRef = useRef(null);
   const inputRef = useRef(null);
 
-  const enter = useKeypress("Enter");
-  const esc = useKeypress("Escape");
-  const tab = useKeypress("Tab");
+  const enter = useKeypress('Enter');
+  const esc = useKeypress('Escape');
+  const tab = useKeypress('Tab');
 
-  const placeholder = "Unsubtitled";
+  const placeholder = 'Unsubtitled';
 
   const deleteButton = (
     <svg
@@ -88,37 +88,44 @@ const InlineEditSubtitle = (props) => {
   return (
     <div
       className="inline-container inline-subtitle"
-      style={{ display: "flex", margin: 0 }}
+      style={{ display: 'flex', margin: 0 }}
       ref={wrapperRef}
     >
       <div
         className="deleteButton deleteSubtitleButton"
         onClick={() => deleteText(scenarioIndex)}
+        onKeyUp={() => deleteText(scenarioIndex)}
+        role="button"
+        tabIndex={0}
       >
         {deleteButton}
       </div>
-      <div style={{ padding: "12px" }}>
+      <div style={{ padding: '12px' }}>
         <div
-          className={`inline-div ${!isInputActive ? "active" : "hidden"}`}
+          className={`inline-div ${!isInputActive ? 'active' : 'hidden'}`}
           ref={textRef}
           onClick={() => {
             setIsInputActive(true);
           }}
+          onKeyUp={() => {
+            setIsInputActive(true);
+          }}
+          role="button"
+          tabIndex={0}
         >
           {inputValue || placeholder}
         </div>
         <input
           style={{
             width:
-              (inputValue.length > placeholder.length
+              `${(inputValue.length > placeholder.length
                 ? inputValue.length + 7
                 : placeholder.length + 7) *
                 0.1 *
-                7.7 +
-              "ch",
+                7.7}ch`,
           }}
           ref={inputRef}
-          className={`inline-input ${!isInputActive ? "hidden" : "active"}`}
+          className={`inline-input ${!isInputActive ? 'hidden' : 'active'}`}
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onFocus={() => {
