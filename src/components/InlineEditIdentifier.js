@@ -1,6 +1,6 @@
-import React, { useRef, useState, useCallback, useEffect } from "react";
-import useOnClickOutside from "../hooks/useOnClickOutside";
-import useKeypress from "../hooks/useKeypress";
+import React, { useRef, useState, useCallback, useEffect } from 'react';
+import useOnClickOutside from '../hooks/useOnClickOutside';
+import useKeypress from '../hooks/useKeypress';
 
 const InlineEditTitle = (props) => {
   const { text, setText, scenarioIndex } = props;
@@ -12,12 +12,11 @@ const InlineEditTitle = (props) => {
   const textRef = useRef(null);
   const inputRef = useRef(null);
 
-  const enter = useKeypress("Enter");
-  const esc = useKeypress("Escape");
-  const tab = useKeypress("Tab");
+  const enter = useKeypress('Enter');
+  const esc = useKeypress('Escape');
+  const tab = useKeypress('Tab');
 
-
-  const placeholder = "Untitled";
+  const placeholder = 'Untitled';
 
   useOnClickOutside(wrapperRef, (event) => {
     if (isInputActive) {
@@ -84,23 +83,28 @@ const InlineEditTitle = (props) => {
           setIsInputActive(true);
           inputRef.current.focus();
         }}
-        className={`inline-div ${!isInputActive ? "active" : "hidden"}`}
+        onKeyUp={() => {
+          setIsInputActive(true);
+          inputRef.current.focus();
+        }}
+        role="button"
+        tabIndex={0}
+        className={`inline-div ${!isInputActive ? 'active' : 'hidden'}`}
       >
         {text}
       </div>
       <input
         style={{
           width:
-            (inputValue.length > placeholder.length
+            `${(inputValue.length > placeholder.length
               ? inputValue.length + 7
               : placeholder.length + 7) *
               0.1 *
-              7.7 +
-            "ch",
+              7.7}ch`,
         }}
         type="text"
         ref={inputRef}
-        className={`inline-input ${!isInputActive ? "hidden" : "active"}`}
+        className={`inline-input ${!isInputActive ? 'hidden' : 'active'}`}
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         // onFocus={() => {
