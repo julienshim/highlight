@@ -1,10 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
-import {
-  BrowserRouter as HashRouter,
-  Switch,
-  Route,
-  Link,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { sampleNote, sampleTemplate, sampleChecklist } from '../sampleData';
 
 // components
@@ -149,7 +144,7 @@ export default function App() {
   }, [checklists]);
 
   return (
-    <HashRouter basename="/highlight">
+    <Router basename="/highlight">
       {/* <div style={{ display: "flex", minHeight: "100vh" }}> */}
       <div>
         <div
@@ -207,6 +202,6 @@ export default function App() {
           </NotesContext.Provider>
         </div>
       </div>
-    </HashRouter>
+    </Router>
   );
 }
