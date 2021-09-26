@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import NotesContext from '../context/notes-context';
 import TemplatesContext from '../context/templates-context';
-import NotesEditDiv from './NotesEditDiv';
+// import NotesEditDiv from './NotesEditDiv';
 
 const Notes = () => {
   // eslint-disable-next-line no-unused-vars
@@ -12,89 +12,73 @@ const Notes = () => {
 
   const addIcon = (
     <svg
-      className="add-icon"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
       viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="feather feather-plus-circle"
     >
-      <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7 14h-5v5h-4v-5h-5v-4h5v-5h4v5h5v4z" />
+      <circle cx="12" cy="12" r="10" />
+      <line x1="12" y1="8" x2="12" y2="16" />
+      <line x1="8" y1="12" x2="16" y2="12" />
     </svg>
   );
 
+  const formatParticipantName = (fullN) => {
+    const [firstN, lastN] = fullN.split(' ');
+    return `${lastN}, ${firstN[0]}.`;
+  };
+
   return (
     <div>
-      <h1>Notes</h1>
-      <h3>Add Note</h3>
-      {templates !== 0 ? (
+      <div
+        className="title-page-container"
+        style={{
+          width: '110px',
+        }}
+      >
+        <div className="title title-page">Notes</div>
         <div>
-          <Link to="/notes/add">
-            <p style={{ fontSize: '1.5rem' }}>
-              <span>{addIcon}</span>Create a New Note
-            </p>
-          </Link>
+          <Link to="/notes/add">{addIcon}</Link>
         </div>
+      </div>
+      {/* If no notes */}
+      {notes.length === 0 ? (
+        <div className="warning mt-40">No saved notes found.</div>
       ) : (
         <div>
-          <p style={{ color: 'var(--dogwood-rose)', fontWeight: 'bold' }}>
-            Before you can create a new note. You must create a template first.
-          </p>
-        </div>
-      )}
-      <h3>Saved Notes</h3>
-      {notes.length === 0 && (
-        <div>
-          <p style={{ color: 'var(--dogwood-rose)', fontWeight: 'bold' }}>
-            No saved notes found.
-          </p>
-        </div>
-      )}
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        {notes.map((note, noteIndex) => {
-          const { refId, body } = note;
-          const { title } = body;
-          return (
-            <div
-              className="card-container"
-              key={`note-${noteIndex * Date.now()}`}
-              style={{
-                width: '250px',
-                height: '250px',
-                border: '1px solid var(--blue-munsell)',
-                margin: '6px',
-              }}
-            >
-              <div
-                className="card-div"
-                style={{ position: 'relative', height: '100%' }}
-              >
-                <div style={{}}>
-                  <h3
-                    style={{
-                      padding: '12px 12px',
-                      margin: '0',
-                      backgroundColor: 'var(--blue-munsell)',
-                      color: 'white',
-                      height: '25px',
-                    }}
-                  >
-                    {refId}
-                  </h3>
-                  <div>
-                    <p style={{ padding: '6px 12px', margin: '6px 0' }}>
-                      {title}
-                    </p>
-                  </div>
+          {notes.map((study) => {
+            const { studyName, participants } = study;
+            return (
+              <div>
+                <div className="title mt-40">{studyName}</div>
+                <div className="participants-container mt-40">
+                  {participants.map((participant, participantIndex) => {
+                    return (
+                      <div
+                        className="card-container"
+                        key={`note-${participantIndex * Date.now()}`}
+                      >
+                        <div className="card-subcontainer">
+                          {formatParticipantName(participant.participantName)}
+                        </div>
+                        <div className="card-subcontainer">
+                          {participant.participantID}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-                <NotesEditDiv
-                  noteIndex={noteIndex}
-                  dispatchNotes={dispatchNotes}
-                />
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };
