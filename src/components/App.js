@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { sampleNote, sampleTemplate, sampleChecklist } from '../sampleData';
 
 // components
-import Dashboard from './Dashboard';
 import Templates from './Templates';
 import AddTemplate from './AddTemplate';
 import EditTemplate from './EditTemplate';
@@ -28,7 +27,7 @@ const routes = [
   {
     path: '/',
     exact: true,
-    component: () => <Dashboard />,
+    component: () => <Notes />,
   },
   {
     path: '/templates',
@@ -166,9 +165,6 @@ export default function App() {
               listStyleType: 'none',
             }}
           >
-            <li>
-              <Link to="/">Dashboard</Link>
-            </li>
             <li>
               <Link to="/checklists">Checklists</Link>
             </li>
