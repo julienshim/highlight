@@ -116,15 +116,6 @@ const InlineEditContent = (props) => {
           {text || placeholder}
         </div>
         <input
-          style={{
-            width: `${
-              (inputValue.length > placeholder.length
-                ? inputValue.length + 7
-                : placeholder.length + 7) *
-              0.1 *
-              7.7
-            }ch`,
-          }}
           ref={inputRef}
           className={`inline-input ${!isInputActive ? 'hidden' : 'active'}`}
           value={inputValue}
