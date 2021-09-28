@@ -3,7 +3,7 @@ import useOnClickOutside from '../hooks/useOnClickOutside';
 import useKeypress from '../hooks/useKeypress';
 
 const InlineEditTitle = (props) => {
-  const { text, setText, scenarioIndex } = props;
+  const { text, setText, type } = props;
 
   const [isInputActive, setIsInputActive] = useState(false);
   const [inputValue, setInputValue] = useState(text);
@@ -16,12 +16,24 @@ const InlineEditTitle = (props) => {
   const esc = useKeypress('Escape');
   const tab = useKeypress('Tab');
 
-  const placeholder = 'Untitled';
+  let placeholder = '';
+
+  if (type === 'refId') {
+    placeholder = 'Please enter a participant ID';
+  }
+
+  if (type === 'participantName') {
+    placeholder = "Please enter participant's name";
+  }
+
+  if (type === 'studyName') {
+    placeholder = 'Please enter the study name';
+  }
 
   useOnClickOutside(wrapperRef, (event) => {
     if (isInputActive) {
       if (event.target.value !== text) {
-        setText(inputValue, scenarioIndex);
+        setText(inputValue);
       }
       setIsInputActive(false);
     }
@@ -30,22 +42,28 @@ const InlineEditTitle = (props) => {
   const onEnter = useCallback(() => {
     if (enter) {
       if (inputRef.current.value !== text) {
-        setText(inputValue, scenarioIndex);
+        setText(inputValue);
+      }
+      if (inputRef.current.value === '') {
+        setText(placeholder);
       }
       document.activeElement.blur();
       setIsInputActive(false);
     }
-  }, [enter, inputValue, setText, text, scenarioIndex]);
+  }, [enter, inputValue, setText, text]);
 
   const onTab = useCallback(() => {
     if (tab) {
       if (inputRef.current.value !== text) {
-        setText(inputValue, scenarioIndex);
+        setText(inputValue);
+      }
+      if (inputRef.current.value === '') {
+        setText(placeholder);
       }
       document.activeElement.blur();
       setIsInputActive(false);
     }
-  }, [tab, inputValue, setText, text, scenarioIndex]);
+  }, [tab, inputValue, setText, text]);
 
   const onEsc = useCallback(() => {
     if (esc) {
@@ -76,7 +94,12 @@ const InlineEditTitle = (props) => {
   }, [onEnter, onTab, onEsc, isInputActive]);
 
   return (
-    <div className="inline-container inline-title" ref={wrapperRef}>
+    <div
+      className={`inline-container inline-title${
+        type === 'participantName' ? ' fw-700' : ''
+      }`}
+      ref={wrapperRef}
+    >
       <div
         ref={textRef}
         onClick={() => {
@@ -94,15 +117,6 @@ const InlineEditTitle = (props) => {
         {text}
       </div>
       <input
-        style={{
-          width: `${
-            (inputValue.length > placeholder.length
-              ? inputValue.length + 7
-              : placeholder.length + 7) *
-            0.1 *
-            7.7
-          }ch`,
-        }}
         type="text"
         ref={inputRef}
         className={`inline-input ${!isInputActive ? 'hidden' : 'active'}`}
