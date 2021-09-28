@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import NotesContext from '../context/notes-context';
 import InlineEditIdentifier from './InlineEditIdentifier';
 import CommentSubtitle from './CommentSubtitle';
@@ -13,46 +13,50 @@ const EditNote = () => {
   // eslint-disable-next-line no-unused-vars
   const { notes, dispatchNotes } = useContext(NotesContext);
   const history = useHistory();
-  const { id } = useParams();
+  const { studyId, participantId } = useParams();
 
   const [refId, setRefId] = useState('Unidentified');
+  const [participantName, setParticipantName] = useState('');
   const [header, setHeader] = useState('');
-  const [title, setTitle] = useState([]);
+  const [studyName, setStudyName] = useState([]);
   const [scenarios, setScenarios] = useState([]);
   const [footer, setFooter] = useState('');
   const [summary, setSummary] = useState('');
+  // eslint-disable-next-line no-unused-vars
   const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
-    if (notes[id]) {
-      setRefId(notes[id].refId);
-      setScenarios(notes[id].body.scenarios);
-      setTitle(notes[id].body.title);
-      setHeader(notes[id].header);
-      setFooter(notes[id].footer);
+    if (notes[studyId].participants[participantId]) {
+      setRefId(notes[studyId].participants[participantId].refId);
+      setParticipantName(
+        notes[studyId].participants[participantId].participantName
+      );
+      setScenarios(notes[studyId].participants[participantId].body.scenarios);
+      setStudyName(notes[studyId].studyName);
+      setHeader(notes[studyId].participants[participantId].header);
+      setFooter(notes[studyId].participants[participantId].footer);
     }
-  }, [id, notes]);
+  }, [participantId, studyId, notes]);
 
   useEffect(() => {
     setIsSaved(false);
-  }, [footer, scenarios, title, header, refId]);
+  }, [footer, scenarios, studyName, header, refId]);
 
   const addNote = (event) => {
     event.preventDefault();
     dispatchNotes({
       type: 'EDIT_NOTE',
-      note_id: parseInt(id, 10),
+      note_id: parseInt(refId, 10),
       refId: refId === '' ? 'Unidentified' : refId,
       header,
       body: {
-        title,
         scenarios,
       },
       footer,
       summary,
     });
     setIsSaved(true);
-    // history.push("/notes");
+    history.push('/notes');
   };
 
   useEffect(() => {
@@ -96,22 +100,27 @@ const EditNote = () => {
   const handleDeleteNote = () => {
     dispatchNotes({
       type: 'REMOVE_NOTE',
-      note_refId: parseInt(id, 10),
+      note_refId: parseInt(refId, 10),
     });
     history.push('/notes');
   };
 
   return (
     <div>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <InlineEditIdentifier text={refId} setText={setRefId} />
-        <h3 style={{ color: 'var(--english-violet)', padding: '8px 12px' }}>
-          {`(${title})`}
-        </h3>
-      </div>
       <div>
-        <CommentHeader text={header} setText={setHeader} />
+        <InlineEditIdentifier
+          text={participantName}
+          setText={setParticipantName}
+          type="participantName"
+        />
+        <InlineEditIdentifier
+          text={studyName}
+          setText={setStudyName}
+          type="studyName"
+        />
+        <InlineEditIdentifier text={refId} setText={setRefId} type="refId" />
       </div>
+      <CommentHeader text={header} setText={setHeader} />
       {scenarios.map((scenario, scenarioIndex) => {
         const { subtitle, subtitleComments, entries } = scenario;
         return (
@@ -142,10 +151,7 @@ const EditNote = () => {
           </div>
         );
       })}
-      <div>
-        <CommentFooter text={footer} setText={setFooter} />
-      </div>
-
+      <CommentFooter text={footer} setText={setFooter} />
       <textarea
         style={{
           height: '250px',
