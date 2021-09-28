@@ -16,7 +16,7 @@ const InlineEditTitle = (props) => {
   const esc = useKeypress('Escape');
   const tab = useKeypress('Tab');
 
-  const placeholder = 'Untitled';
+  // const placeholder = 'Untitled';
 
   useOnClickOutside(wrapperRef, (event) => {
     if (isInputActive) {
@@ -94,15 +94,6 @@ const InlineEditTitle = (props) => {
         {text}
       </div>
       <input
-        style={{
-          width: `${
-            (inputValue.length > placeholder.length
-              ? inputValue.length + 7
-              : placeholder.length + 7) *
-            0.1 *
-            7.7
-          }ch`,
-        }}
         type="text"
         ref={inputRef}
         className={`inline-input ${!isInputActive ? 'hidden' : 'active'}`}
