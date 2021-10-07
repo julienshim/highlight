@@ -1,14 +1,11 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import NotesContext from '../context/notes-context';
-import TemplatesContext from '../context/templates-context';
 // import NotesEditDiv from './NotesEditDiv';
 
 const Notes = () => {
-  // eslint-disable-next-line no-unused-vars
-  const { notes, dispatchNotes } = useContext(NotesContext);
-  // eslint-disable-next-line no-unused-vars
-  const { templates, dispatchTemplates } = useContext(TemplatesContext);
+  const { notes } = useContext(NotesContext);
+  const history = useHistory();
 
   const addIcon = (
     <svg
@@ -52,7 +49,7 @@ const Notes = () => {
         <div className="warning mt-40">No saved notes found.</div>
       ) : (
         <div>
-          {notes.map((study) => {
+          {notes.map((study, studyId) => {
             const { studyName, participants } = study;
             return (
               <div>
@@ -62,7 +59,19 @@ const Notes = () => {
                     return (
                       <div
                         className="card-container"
-                        key={`note-${participantIndex * Date.now()}`}
+                        key={`participant-${participantIndex * Date.now()}`}
+                        onClick={() =>
+                          history.push(
+                            `/notes/update/${studyId}/${participantIndex}`
+                          )
+                        }
+                        onKeyUp={() =>
+                          history.push(
+                            `/notes/update/${studyId}/${participantIndex}`
+                          )
+                        }
+                        role="button"
+                        tabIndex={0}
                       >
                         <div className="card-subcontainer">
                           {formatParticipantName(participant.participantName)}
