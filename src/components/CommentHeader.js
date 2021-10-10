@@ -2,7 +2,7 @@ import React, { useRef, useCallback, useState, useEffect } from 'react';
 import useOnClickOutside from '../hooks/useOnClickOutside';
 import useKeypress from '../hooks/useKeypress';
 
-const CommentSubtitle = (props) => {
+const CommentHeader = (props) => {
   const { text, setText } = props;
 
   const [isInputActive, setIsInputActive] = useState(false);
@@ -69,22 +69,20 @@ const CommentSubtitle = (props) => {
   }, [onEnter, onEsc, onTab, isInputActive]);
 
   return (
-    <div ref={wrapperRef}>
-      <div style={{ padding: '12px' }}>
-        <input
-          style={{ width: '100%', boxSizing: 'border-box' }}
-          ref={inputRef}
-          className="highlighter"
-          value={inputValue}
-          placeholder={placeholder}
-          onChange={(e) => {
-            setIsInputActive(true);
-            setInputValue(e.target.value);
-          }}
-        />
-      </div>
+    <div ref={wrapperRef} className="mt-40">
+      <textarea
+        style={{ width: '100%', boxSizing: 'border-box' }}
+        ref={inputRef}
+        className="highlighter"
+        value={inputValue}
+        placeholder={placeholder}
+        onChange={(e) => {
+          setIsInputActive(true);
+          setInputValue(e.target.value);
+        }}
+      />
     </div>
   );
 };
 
-export default CommentSubtitle;
+export default CommentHeader;
