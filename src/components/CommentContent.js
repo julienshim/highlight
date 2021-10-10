@@ -2,7 +2,7 @@ import React, { useRef, useCallback, useState, useEffect } from 'react';
 import useOnClickOutside from '../hooks/useOnClickOutside';
 import useKeypress from '../hooks/useKeypress';
 
-const CommentSubtitle = (props) => {
+const CommentContent = (props) => {
   const { text, setText, scenarioIndex, entryIndex, content } = props;
 
   const [isInputActive, setIsInputActive] = useState(false);
@@ -25,8 +25,14 @@ const CommentSubtitle = (props) => {
       width="12"
       height="12"
       viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="feather feather-message-square"
     >
-      <path d="M10 13h-4v-1h4v1zm2.318-4.288l3.301 3.299-4.369.989 1.068-4.288zm11.682-5.062l-7.268 7.353-3.401-3.402 7.267-7.352 3.402 3.401zm-6 8.916v.977c0 4.107-6 2.457-6 2.457s1.518 6-2.638 6h-7.362v-20h14.056l1.977-2h-18.033v24h10.189c3.163 0 9.811-7.223 9.811-9.614v-3.843l-2 2.023z" />
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
     </svg>
   );
 
@@ -85,12 +91,11 @@ const CommentSubtitle = (props) => {
   return (
     <div
       className="inline-container inline-content"
-      style={{ display: 'flex', margin: 0 }}
+      style={{ display: 'flex' }}
       ref={wrapperRef}
     >
       <div
-        className="commentButton"
-        style={{ cursor: 'pointer' }}
+        className="comment-button"
         onClick={() => {
           if (!inputValue) {
             setHasText(!hasText);
@@ -108,7 +113,7 @@ const CommentSubtitle = (props) => {
       >
         {commentButton}
       </div>
-      <div style={{ padding: '12px' }}>
+      <div style={{ width: '100%' }}>
         <div
           className="inline-div"
           ref={textRef}
@@ -132,15 +137,6 @@ const CommentSubtitle = (props) => {
         </div>
         {hasText && (
           <input
-            style={{
-              width: `${
-                (inputValue.length > placeholder.length
-                  ? inputValue.length + 7
-                  : placeholder.length + 7) *
-                0.1 *
-                7.7
-              }ch`,
-            }}
             ref={inputRef}
             className="inline-input highlighter"
             value={inputValue}
@@ -156,4 +152,4 @@ const CommentSubtitle = (props) => {
   );
 };
 
-export default CommentSubtitle;
+export default CommentContent;
