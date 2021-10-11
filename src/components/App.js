@@ -55,7 +55,7 @@ const routes = [
     component: () => <AddNote />,
   },
   {
-    path: '/notes/update/:id',
+    path: '/notes/update/:studyId/:participantId',
     exact: true,
     component: () => <EditNote />,
   },
@@ -143,61 +143,64 @@ export default function App() {
   }, [checklists]);
 
   return (
-    <Router basename="/highlight">
-      {/* <div style={{ display: "flex", minHeight: "100vh" }}> */}
-      <div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            padding: '12px 24px',
-            backgroundColor: '#ccc',
-            // background: "var(--english-violet)",
-          }}
-        >
-          <h3>Highlight</h3>
-          <ul
+    <div
+      className="container"
+      style={{ width: '763px', padding: 0, backgroundColor: 'pink' }}
+    >
+      <Router basename="/highlight">
+        {/* <div style={{ display: "flex", minHeight: "100vh" }}> */}
+        <div style={{ margin: '24px 0' }}>
+          <div
             style={{
               display: 'flex',
-              paddingTop: '6px',
               justifyContent: 'space-between',
-              width: '325px',
-              listStyleType: 'none',
             }}
           >
-            <li>
-              <Link to="/checklists">Checklists</Link>
-            </li>
-            <li>
-              <Link to="/templates">Templates</Link>
-            </li>
-            <li>
-              <Link to="/notes">Notes</Link>
-            </li>
-          </ul>
-        </div>
-
-        <div style={{ padding: '24px 48px' }}>
-          <NotesContext.Provider value={{ notes, dispatchNotes }}>
-            <TemplatesContext.Provider value={{ templates, dispatchTemplates }}>
-              <ChecklistsContext.Provider
-                value={{ checklists, dispatchChecklists }}
+            <div className="title">Highlight</div>
+            <ul
+              style={{
+                display: 'flex',
+                fontSize: '14px',
+                justifyContent: 'space-between',
+                width: '231px',
+                listStyleType: 'none',
+              }}
+            >
+              <li>
+                <Link to="/checklists">Checklists</Link>
+              </li>
+              <li>
+                <Link to="/templates">Templates</Link>
+              </li>
+              <li>
+                <Link to="/notes">Notes</Link>
+              </li>
+            </ul>
+          </div>
+          <div style={{ marginTop: '127px' }}>
+            <NotesContext.Provider value={{ notes, dispatchNotes }}>
+              <TemplatesContext.Provider
+                value={{ templates, dispatchTemplates }}
               >
-                <Switch>
-                  {routes.map((route, index) => (
-                    <Route
-                      key={`route-${index * Date.now()}`}
-                      path={route.path}
-                      exact={route.exact}
-                      component={route.component}
-                    />
-                  ))}
-                </Switch>
-              </ChecklistsContext.Provider>
-            </TemplatesContext.Provider>
-          </NotesContext.Provider>
+                <ChecklistsContext.Provider
+                  value={{ checklists, dispatchChecklists }}
+                >
+                  <Switch>
+                    {routes.map((route, index) => (
+                      <Route
+                        key={`route-${index * Date.now()}`}
+                        path={route.path}
+                        exact={route.exact}
+                        component={route.component}
+                      />
+                    ))}
+                  </Switch>
+                </ChecklistsContext.Provider>
+              </TemplatesContext.Provider>
+            </NotesContext.Provider>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </div>
   );
 }
