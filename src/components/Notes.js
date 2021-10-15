@@ -77,7 +77,7 @@ const Notes = () => {
                           {formatParticipantName(participant.participantName)}
                         </div>
                         <div className="card-subcontainer">
-                          {participant.participantID}
+                          {participant.refId}
                         </div>
                       </div>
                     );
