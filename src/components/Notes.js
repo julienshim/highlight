@@ -48,12 +48,12 @@ const Notes = () => {
       {notes.length === 0 ? (
         <div className="warning mt-40">No saved notes found.</div>
       ) : (
-        <div>
+        <div className="mt-40">
           {notes.map((study, studyId) => {
             const { studyName, participants } = study;
             return (
               <div>
-                <div className="title mt-40">{studyName}</div>
+                <div className="title">{studyName}</div>
                 <div className="participants-container mt-40">
                   {participants.map((participant, participantIndex) => {
                     return (
