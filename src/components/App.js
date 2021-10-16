@@ -9,9 +9,9 @@ import EditTemplate from './EditTemplate';
 import Notes from './Notes';
 import AddNote from './AddNote';
 import EditNote from './EditNote';
-import Checklists from './Checklists';
-import AddChecklist from './AddChecklist';
-import EditChecklist from './EditChecklist';
+// import Checklists from './Checklists';
+// import AddChecklist from './AddChecklist';
+// import EditChecklist from './EditChecklist';
 
 // reducers
 import templatesReducer from '../reducers/templatesReducer';
@@ -59,21 +59,21 @@ const routes = [
     exact: true,
     component: () => <EditNote />,
   },
-  {
-    path: '/checklists',
-    exact: true,
-    component: () => <Checklists />,
-  },
-  {
-    path: '/checklists/add',
-    exact: true,
-    component: () => <AddChecklist />,
-  },
-  {
-    path: '/checklists/update/:id',
-    exact: true,
-    component: () => <EditChecklist />,
-  },
+  // {
+  //   path: '/checklists',
+  //   exact: true,
+  //   component: () => <Checklists />,
+  // },
+  // {
+  //   path: '/checklists/add',
+  //   exact: true,
+  //   component: () => <AddChecklist />,
+  // },
+  // {
+  //   path: '/checklists/update/:id',
+  //   exact: true,
+  //   component: () => <EditChecklist />,
+  // },
   {
     path: '*',
     component: () => <div>404</div>,
@@ -166,9 +166,7 @@ export default function App() {
                 listStyleType: 'none',
               }}
             >
-              <li>
-                <Link to="/checklists">Checklists</Link>
-              </li>
+              <li>{/* <Link to="/checklists">Checklists</Link> */}</li>
               <li>
                 <Link to="/templates">Templates</Link>
               </li>
