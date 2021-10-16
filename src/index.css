@@ -179,9 +179,10 @@ div.active {
   cursor: pointer;
 }
 
-.card-container:hover > .card-subcontainer:first-child,
-.card-container:hover > .card-subcontainer:last-child {
-  background-color: #33cccc;
+.card-container:hover > .card-subcontainer,
+.card-container:hover > .card-subcontainer-max-t,
+.card-container:hover > .card-subcontainer-max-c {
+  background-color: #388186;
 }
 
 .card-subcontainer {
@@ -200,6 +201,23 @@ div.active {
   background-color: #ecf0f1;
   color: #000000;
 }
+
+.card-subcontainer-max-t {
+  height: 100%;
+  background-color: #33CCCC;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-subcontainer-max-c {
+  height: 100%;
+  background-color: #2980B9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 /* div.card-container:hover div.edit-div {
   visibility: visible;
