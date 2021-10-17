@@ -119,12 +119,16 @@ const EditTemplate = () => {
   };
 
   const generateValues = (arr) => {
-    return arr
-      .map((scenario, scenarioIndex) => {
+    let temp = [title];
+    temp = [
+      ...temp,
+      arr.map((scenario, scenarioIndex) => {
         const { subtitle } = scenario;
         return `## ${subtitle}`;
-      })
-      .join('\n');
+      }),
+    ];
+    console.log(temp);
+    return temp.join('\n');
   };
 
   const editIcon = (
@@ -170,6 +174,7 @@ const EditTemplate = () => {
         style={{
           display: 'flex',
           width: '63px',
+          marginTop: '20px',
           justifyContent: 'space-between',
         }}
       >
@@ -224,7 +229,14 @@ const EditTemplate = () => {
       <div>
         <AddSectionButton handleAddNewScenario={handleAddNewScenario} />
       </div> */}
-      <textarea value={generateValues(scenarios)} />
+      <textarea
+        style={{
+          marginTop: '50px',
+          width: '100%',
+          aspectRatio: '1/1',
+        }}
+        value={generateValues(scenarios)}
+      />
       <form onSubmit={handleAddTemplate}>
         <SaveButton isSaved={isSaved} />
       </form>
