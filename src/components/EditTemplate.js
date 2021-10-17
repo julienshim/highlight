@@ -1,13 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import TemplatesContext from '../context/templates-context';
-import InlineEditTitle from './InlineEditTitle';
-import InlineEditSubtitle from './InlineEditSubtitle';
-import InlineEditContent from './InlineEditContent';
-import AddBulkLines from './AddBulkLines';
+// import InlineEditSubtitle from './InlineEditSubtitle';
+// import InlineEditContent from './InlineEditContent';
+// import AddBulkLines from './AddBulkLines';
 import DeleteButton from './DeleteButton';
 import SaveButton from './SaveButton';
-import AddSectionButton from './AddSectionButton';
+// import AddSectionButton from './AddSectionButton';
 
 const EditTemplate = () => {
   // eslint-disable-next-line no-unused-vars
@@ -57,59 +56,59 @@ const EditTemplate = () => {
     // history.push("/templates");
   };
 
-  const handleContentChange = (newText, scenarioIndex, entryIndex) => {
-    const newScenarios = [...scenarios];
-    newScenarios[scenarioIndex].entries[entryIndex].content = newText;
-    setScenarios(newScenarios);
-  };
+  // const handleContentChange = (newText, scenarioIndex, entryIndex) => {
+  //   const newScenarios = [...scenarios];
+  //   newScenarios[scenarioIndex].entries[entryIndex].content = newText;
+  //   setScenarios(newScenarios);
+  // };
 
-  const handleSubtitleChange = (newText, scenariosIndex) => {
-    const newScenarios = [...scenarios];
-    newScenarios[scenariosIndex].subtitle = newText;
-    setScenarios(newScenarios);
-  };
+  // const handleSubtitleChange = (newText, scenariosIndex) => {
+  //   const newScenarios = [...scenarios];
+  //   newScenarios[scenariosIndex].subtitle = newText;
+  //   setScenarios(newScenarios);
+  // };
 
-  const handleAddNewContent = (scenarioIndex, contentArr) => {
-    const newScenarios = [...scenarios];
-    const processedContent =
-      contentArr === null
-        ? [{ content: 'Untexted', contentComments: '' }]
-        : contentArr.map((content) => {
-            const tmp = { content, contentComments: '' };
-            return tmp;
-          });
-    newScenarios[scenarioIndex].entries = [
-      ...newScenarios[scenarioIndex].entries,
-      ...processedContent,
-    ];
-    setScenarios(newScenarios);
-  };
+  // const handleAddNewContent = (scenarioIndex, contentArr) => {
+  //   const newScenarios = [...scenarios];
+  //   const processedContent =
+  //     contentArr === null
+  //       ? [{ content: 'Untexted', contentComments: '' }]
+  //       : contentArr.map((content) => {
+  //           const tmp = { content, contentComments: '' };
+  //           return tmp;
+  //         });
+  //   newScenarios[scenarioIndex].entries = [
+  //     ...newScenarios[scenarioIndex].entries,
+  //     ...processedContent,
+  //   ];
+  //   setScenarios(newScenarios);
+  // };
 
-  const handleDeleteCurrentScenario = (scenarioIndex) => {
-    const newScenarios = scenarios.filter(
-      (scenario, index) => index !== scenarioIndex
-    );
-    setScenarios(newScenarios);
-  };
+  // const handleDeleteCurrentScenario = (scenarioIndex) => {
+  //   const newScenarios = scenarios.filter(
+  //     (scenario, index) => index !== scenarioIndex
+  //   );
+  //   setScenarios(newScenarios);
+  // };
 
-  const handleDeleteCurrentContent = (scenarioIndex, entryIndex) => {
-    const newScenarios = [...scenarios];
-    newScenarios[scenarioIndex].entries = newScenarios[
-      scenarioIndex
-    ].entries.filter((entry, index) => index !== entryIndex);
-    setScenarios(newScenarios);
-  };
+  // const handleDeleteCurrentContent = (scenarioIndex, entryIndex) => {
+  //   const newScenarios = [...scenarios];
+  //   newScenarios[scenarioIndex].entries = newScenarios[
+  //     scenarioIndex
+  //   ].entries.filter((entry, index) => index !== entryIndex);
+  //   setScenarios(newScenarios);
+  // };
 
-  const handleAddNewScenario = () => {
-    setScenarios([
-      ...scenarios,
-      {
-        subtitle: 'Unsubtitled',
-        subtitleComments: '',
-        entries: [{ content: 'Untexted', contentComments: '' }],
-      },
-    ]);
-  };
+  // const handleAddNewScenario = () => {
+  //   setScenarios([
+  //     ...scenarios,
+  //     {
+  //       subtitle: 'Unsubtitled',
+  //       subtitleComments: '',
+  //       entries: [{ content: 'Untexted', contentComments: '' }],
+  //     },
+  //   ]);
+  // };
 
   const handleDeleteTemplate = () => {
     dispatchTemplates({
@@ -119,13 +118,67 @@ const EditTemplate = () => {
     history.push('/templates');
   };
 
+  const generateValues = (arr) => {
+    return arr
+      .map((scenario, scenarioIndex) => {
+        const { subtitle } = scenario;
+        return `## ${subtitle}`;
+      })
+      .join('\n');
+  };
+
+  const editIcon = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="feather feather-edit"
+    >
+      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+    </svg>
+  );
+
+  const previewIcon = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="feather feather-eye"
+    >
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+
   return (
     <div>
-      <h1 style={{ color: 'var(--english-violet)' }}>
-        Edit <span>{title}</span> template
-      </h1>
-      <InlineEditTitle text={title} setText={setTitle} />
-      {scenarios.map((scenario, scenarioIndex) => {
+      <div className="title title-page">Editing {title} Template</div>
+      <div
+        style={{
+          display: 'flex',
+          width: '63px',
+          justifyContent: 'space-between',
+        }}
+      >
+        {editIcon}
+        {previewIcon}
+      </div>
+
+      {/* {scenarios.map((scenario, scenarioIndex) => {
+        console.log(scenarios);
         const { subtitle, entries } = scenario;
         return (
           <div
@@ -167,10 +220,11 @@ const EditTemplate = () => {
             </div>
           </div>
         );
-      })}
+      })} 
       <div>
         <AddSectionButton handleAddNewScenario={handleAddNewScenario} />
-      </div>
+      </div> */}
+      <textarea value={generateValues(scenarios)} />
       <form onSubmit={handleAddTemplate}>
         <SaveButton isSaved={isSaved} />
       </form>
